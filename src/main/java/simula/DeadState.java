@@ -1,24 +1,24 @@
 // Arquivo DeadState.java
-// Implementaï¿½ï¿½o das Classes do Grupo de Modelagem da Biblioteca de Simulaï¿½ï¿½o JAVA
+// Implementação das Classes do Grupo de Modelagem da Biblioteca de Simulação JAVA
 // 26.Mar.1999	Wladimir
 
 package simula;
 
 public abstract class DeadState
 {
-	private short capacity;		// quantidade mï¿½xima de entidades neste estado
+	private short capacity;		// quantidade máxima de entidades neste estado
 
 	/**
-	 * nï¿½mero de entidades presentes
+	 * número de entidades presentes
 	 */
 	protected short count = 0;
 	/**
-	 * referï¿½ncia ao scheduler para obter relï¿½gio
-	 * da simulaï¿½ï¿½o (para as estatï¿½sticas)
+	 * referência ao scheduler para obter relógio
+	 * da simulação (para as estatísticas)
 	 */
 	protected Scheduler s;
 	/**
-	 * observador (para estatï¿½sticas)
+	 * observador (para estatísticas)
 	 */
 	protected Observer obs;	
 	/**
@@ -31,29 +31,28 @@ public abstract class DeadState
 	public DeadState(Scheduler s, int max){capacity = (short)max; this.s = s;}	
 	
 	/**
-	 * retorna true se hï¿½ espaï¿½o para inserir nentities entidades. 
+	 * retorna true se há espaço para inserir nentities entidades. 
 	 */
 	public boolean HasSpace(int nentities)
 	{return (capacity != 0)? ((short)nentities <= capacity - count) : true;}
 	
 	/**
-	 * retorna true se hï¿½ espaï¿½o para inserir uma entidade. 
+	 * retorna true se há espaço para inserir uma entidade. 
 	 */
 	public boolean HasSpace()
 	{return (capacity != 0)? (1 <= capacity - count) : true;}
 	
 	/**
-	 * retorna true se hï¿½ nentities entidades (ou recursos) para serem retiradas.
+	 * retorna true se há nentities entidades (ou recursos) para serem retiradas.
 	 */
 	public boolean HasEnough(int nentities)	
 	{return (short)nentities <= count;}
 	
 	/**
-	 * retorna true se hï¿½ uma entidade (ou recurso) para ser retirada.
+	 * retorna true se há uma entidade (ou recurso) para ser retirada.
 	 */
-	public boolean HasEnough()	{
-		return 1 <= count;
-	}
+	public boolean HasEnough()	
+	{return 1 <= count;}
 	
 	/**
 	 * retorna o tamanho da fila (para ser usado por Observer).
@@ -72,9 +71,9 @@ public abstract class DeadState
 	}
 	
 	/**
-	 * Coloca objeto em seu estado inicial para simulaï¿½ï¿½o
+	 * Coloca objeto em seu estado inicial para simulação
 	 */
-	public void clear()
+	public void Clear()
 	{
 		if(obs == null)
 			return;
@@ -83,36 +82,17 @@ public abstract class DeadState
 
 	/**
 	 * adiciona entidade e no "final" da fila; 
-	 * resultado imprevisï¿½vel se ocorrer estouro da capacidade.
+	 * resultado imprevisível se ocorrer estouro da capacidade.
 	 */
-	public abstract void enqueue(Entity e);					
+	public abstract void Enqueue(Entity e);					
 	/**
 	 * remove entidade da "frente" da fila; 
-	 * resultado imprevisï¿½vel se nï¿½o houver entidade a ser retirada.
+	 * resultado imprevisível se não houver entidade a ser retirada.
 	 */
-	public abstract Entity dequeue();						
+	public abstract Entity Dequeue();						
 	/**
-	 * devolve entidade e ï¿½ "frente" da fila;
-	 * resultado imprevisï¿½vel se ocorrer estouro da capacidade.
+	 * devolve entidade e à "frente" da fila;
+	 * resultado imprevisível se ocorrer estouro da capacidade.
 	 */
-	public abstract void putBack(Entity e);
-
-	public short getCount() {
-		return count;
-	}
-
-	public void setCount(short count) {
-		this.count = count;
-	}
-	
-	// Pagliares. There is a method acquire in ResourceQ. It overrides this one
-	// including an observer. Verifiy if the Acquire in subclass can be 
-	// eliminated, generalizing the method here.
-	public boolean acquire(int n){ 
-		if (count >= n) {
-			count -= (short)n;
-			return true;
-		} else
-			return false;
-	}
+	public abstract void PutBack(Entity e);
 }

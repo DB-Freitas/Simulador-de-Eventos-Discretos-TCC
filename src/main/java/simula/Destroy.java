@@ -1,5 +1,5 @@
 // Arquivo Destroy.java
-// Implementaï¿½ï¿½o das Classes do Grupo de Modelagem da Biblioteca de Simulaï¿½ï¿½o JAVA
+// Implementação das Classes do Grupo de Modelagem da Biblioteca de Simulação JAVA
 // 26.Mar.1999	Wladimir
 
 package simula;
@@ -11,22 +11,22 @@ package simula;
 public class Destroy extends ActiveState
 {
 	/**
-	 * referï¿½ncia da fila conectada
+	 * referência da fila conectada
 	 */
 	protected DeadState from_q;		
 	
 	/**
-	 * nï¿½mero de entidades destruï¿½das
+	 * número de entidades destruídas
 	 */
 	public int Destroyed = 0;		
 
 	/**
-	 * constrï¿½i um estado ativo sem conexï¿½es ou tempo de serviï¿½o definidos.
+	 * constrói um estado ativo sem conexões ou tempo de serviço definidos.
 	 */
 	public Destroy(Scheduler s){super(s);}
 
 	/**
-	 * determina origem das entidades destruï¿½das.
+	 * determina origem das entidades destruídas.
 	 * @param	from	the queue to connect from
 	 */
 	public void ConnectQueue(DeadState from)
@@ -36,7 +36,7 @@ public class Destroy extends ActiveState
 	}
 
 	/**
-	 * Coloca objeto em seu estado inicial para simulaï¿½ï¿½o
+	 * Coloca objeto em seu estado inicial para simulação
 	 */
 	public void Clear()
 	{
@@ -50,21 +50,21 @@ public class Destroy extends ActiveState
 	public boolean BServed(float time){return false;}
 
 	/**
-	 * consome entidades disponï¿½veis na fila e realiza estatï¿½sticas (quando aplicï¿½vel).
+	 * consome entidades disponíveis na fila e realiza estatísticas (quando aplicável).
 	 */
 	public boolean CServed()
 	{
 		boolean got = false;
 
-		while(from_q.HasEnough())			// enquanto tiver entidades a serem destruï¿½das
+		while(from_q.HasEnough())			// enquanto tiver entidades a serem destruídas
 		{
-			Entity e = from_q.dequeue();	// retira entidade
-			// faz estatï¿½sticas
+			Entity e = from_q.Dequeue();	// retira entidade
+			// faz estatísticas
 			if(obs != null)
 				obs.Incoming(e);
 			got = true;
 			Destroyed++;
-			Log.LogMessage(name + ":Entity " + e.getId() + 
+			Log.LogMessage(name + ":Entity " + e.GetId() + 
 				", from " + from_q.name + ", destroyed.");
 		}
 		

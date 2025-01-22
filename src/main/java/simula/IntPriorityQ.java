@@ -1,85 +1,88 @@
 // Arquivo IntPriorityQ.java
-// Implementaï¿½ï¿½o das Classes do Grupo de Modelagem da Biblioteca de Simulaï¿½ï¿½o JAVA
+// Implementação das Classes do Grupo de Modelagem da Biblioteca de Simulação JAVA
 // 9.Abr.1999	Wladimir
 
 package simula;
 
 import java.util.*;
 
-class IntPriorityQ {
-	private Vector queue;					// implementa fila como vetor
+class IntPriorityQ
+{
+	private Vector q;					// implementa fila como vetor
 
 	/**
-	 * constrï¿½i uma fila vazia com capacidade ilimitada. 
+	 * constrói uma fila vazia com capacidade ilimitada. 
 	 */
-	public IntPriorityQ(){
-		queue = new Vector(5, 5);	
+	public IntPriorityQ()
+	{
+		q = new Vector(5, 5);	
 	}
 	
 	/**
-	 * coloca no fim da fila de acordo com o instante de serviï¿½o
+	 * coloca no fim da fila de acordo com o instante de serviço
 	 */
-	public void Enqueue(InServiceTemporaryEntitiesUntilDueTime inServiceEntities){
-		int min, max, cur;	// max pode ser negativo (qdo for inserir no comeï¿½o)
-		InServiceTemporaryEntitiesUntilDueTime inServiceEntities2;
-		// encontra posiï¿½ï¿½o de inserï¿½ï¿½o baseado no tempo de serviï¿½o de IntQEntry e.
-		// implementa busca binï¿½ria, jï¿½ que os elementos esï¿½o ordenados por tempo.
+	public void Enqueue(IntQEntry e)
+	{
+		int min, max, cur;	// max pode ser negativo (qdo for inserir no começo)
+		IntQEntry e2;
+		// encontra posição de inserção baseado no tempo de serviço de IntQEntry e.
+		// implementa busca binária, já que os elementos esão ordenados por tempo.
 		min = 0;
-		max = queue.size() - 1;
+		max = q.size() - 1;
 		cur = 0;
-		while(min <= max){
+		while(min <= max)
+		{
 			cur = (min + max) / 2;
-			inServiceEntities2 = (InServiceTemporaryEntitiesUntilDueTime)queue.elementAt(cur);
-			if(inServiceEntities.duetime < inServiceEntities2.duetime)
+			e2 = (IntQEntry)q.elementAt(cur);
+			if(e.duetime < e2.duetime)
 				max = cur - 1;
-			else if(inServiceEntities.duetime >= inServiceEntities2.duetime)				// apï¿½s os de mesma prioridade 
-				min = ++cur;								// que jï¿½ estï¿½o na fila
+			else if(e.duetime >= e2.duetime)				// após os de mesma prioridade 
+				min = ++cur;								// que já estão na fila
 		}
-		// cur contï¿½m a posiï¿½ï¿½o de inserï¿½ï¿½o
-		queue.insertElementAt(inServiceEntities, cur);
+		// cur contém a posição de inserção
+		q.insertElementAt(e, cur);
 	}
 	
 	/**
-	 * recoloca na cabeï¿½a da fila;
-	 * nï¿½o ï¿½ checado o tempo de serviï¿½o, portanto sï¿½ deve ser usada se for para elemento que
-	 * acabou de ser retirado atravï¿½s de Dequeue
+	 * recoloca na cabeça da fila;
+	 * não é checado o tempo de serviço, portanto só deve ser usada se for para elemento que
+	 * acabou de ser retirado através de Dequeue
 	 */
-	public void PutBack(InServiceTemporaryEntitiesUntilDueTime e){	
-		queue.insertElementAt(e, 0);
+	public void PutBack(IntQEntry e)
+	{	
+		q.insertElementAt(e, 0);
 	}
 	
 	/**
-	 * retira da cabeï¿½a da fila.
+	 * retira da cabeça da fila.
 	 */
-	public InServiceTemporaryEntitiesUntilDueTime Dequeue(){
-		try{
-			InServiceTemporaryEntitiesUntilDueTime inServiceEntities = (InServiceTemporaryEntitiesUntilDueTime)queue.firstElement();
-			queue.removeElementAt(0);
-			return inServiceEntities;
+	public IntQEntry Dequeue()
+	{
+		try
+		{
+			IntQEntry e = (IntQEntry)q.firstElement();
+			q.removeElementAt(0);
+			return e;
 		}
-		catch(NoSuchElementException x){
-			return null;
-		}
+		catch(NoSuchElementException x){return null;}
 	}
 
 	/**
 	 * retira do fim da fila
 	 */
-	public InServiceTemporaryEntitiesUntilDueTime FromTail(){
-		try{
-			InServiceTemporaryEntitiesUntilDueTime e = (InServiceTemporaryEntitiesUntilDueTime)queue.lastElement();
-			queue.removeElementAt(queue.size() - 1);
+	public IntQEntry FromTail()
+	{
+		try
+		{
+			IntQEntry e = (IntQEntry)q.lastElement();
+			q.removeElementAt(q.size() - 1);
 			return e;
 		}
-		catch(NoSuchElementException x){
-			return null;
-		}
+		catch(NoSuchElementException x){return null;}
 	}
 	
 	/**
-	 * retorna true se fila estï¿½ vazia
+	 * retorna true se fila está vazia
 	 */
-	public boolean IsEmpty(){
-		return queue.isEmpty();
-	}
+	public boolean IsEmpty(){return q.isEmpty();}
 }

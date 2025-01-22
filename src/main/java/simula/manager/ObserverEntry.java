@@ -1,5 +1,5 @@
 // Arquivo ObserverEntry.java 
-// Implementaï¿½ï¿½o das Classes do Sistema de Gerenciamento da Simulaï¿½ï¿½o
+// Implementação das Classes do Sistema de Gerenciamento da Simulação
 // 21.Mai.1999 Wladimir
 
 package simula.manager;
@@ -9,12 +9,12 @@ import java.io.*;
 
 /**
  * Entrada para os diveros observadores do modelo.
- * Entry.obsid ï¿½ usado como link para a lista de Observadores
+ * Entry.obsid é usado como link para a lista de Observadores
  */
 public class ObserverEntry extends Entry
 {
-	private static int lastid;	// identificador ï¿½NICO para os observadores
-	static boolean hasSerialized = true; // "lastid jï¿½ foi serializado"
+	private static int lastid;	// identificador ÚNICO para os observadores
+	static boolean hasSerialized = true; // "lastid já foi serializado"
 		
 	/**
 	 * QUEUE, RESOURCE, ACTIVE, PROCESSOR, DELAY:
@@ -31,7 +31,7 @@ public class ObserverEntry extends Entry
 	 */
 	private short type;
 	/**
-	 * id de quem ï¿½ observado
+	 * id de quem é observado
 	 */
 	private String observed;
 
@@ -39,15 +39,15 @@ public class ObserverEntry extends Entry
 	 * atributo observado<p>
 	 * para QUEUE, se "time" -> queue time, se null -> length
 	 * para RESOURCE, sempre null
-	 * para ACTIVE, se null -> idle time, senï¿½o o prï¿½prio atributo
-	 * para PROCESSOR, o atributo a que serï¿½ atribuï¿½do exp
+	 * para ACTIVE, se null -> idle time, senão o próprio atributo
+	 * para PROCESSOR, o atributo a que será atribuído exp
 	 * para DELAY, se null -> stamp, se "obs" -> mede delay
 	 */
 	private String att;							
 		
 	/**
-	 * para PROCESSOR, expressï¿½o; 
-	 * para DELAY, se null -> na entrada, se "" -> na saï¿½da
+	 * para PROCESSOR, expressão; 
+	 * para DELAY, se null -> na entrada, se "" -> na saída
 	 */
 	private String exp;		
 
@@ -60,8 +60,8 @@ public class ObserverEntry extends Entry
 															
 																
 																		
-	transient Observer SimObj;			// objeto de simulaï¿½ï¿½o
-                              			// nï¿½o ï¿½ serializado
+	transient Observer SimObj;			// objeto de simulação
+                              			// não é serializado
   			
 	public String toString()
 	{
@@ -98,8 +98,8 @@ public class ObserverEntry extends Entry
 		return "TYPE???";
 	}
 	/**
-	 * constrï¿½i um objeto com id gerado internamente;
-	 * determina o tipo do observador e quem ï¿½ observado.
+	 * constrói um objeto com id gerado internamente;
+	 * determina o tipo do observador e quem é observado.
 	 */
 	public ObserverEntry(short obsType, String who)
 	{
@@ -133,33 +133,33 @@ public class ObserverEntry extends Entry
 	public final void setExp(String v_strExp){	exp = v_strExp;	}
 	public final void setHistid(String v_strHistid){	histid = v_strHistid;	}
 	
-	boolean generate(SimulationManager m)
+	boolean Generate(SimulationManager m)
 	{
 		boolean ok = true;
 		
 		switch(type)
 		{
-			case RESOURCE: SimObj = new ResourceObserver(m.scheduler, m.GetResource(observed).SimObj, new Statistics(m.scheduler)); break;
+			case RESOURCE: SimObj = new ResourceObserver(m.s, m.GetResource(observed).SimObj, new Statistics(m.s)); break;
 	
 			case QUEUE: 
 				if(histid == null)
-					SimObj = new QueueObserver(m.scheduler, m.GetQueue(observed).deadState, new Statistics(m.scheduler), att != null);
+					SimObj = new QueueObserver(m.s, m.GetQueue(observed).SimObj, new Statistics(m.s), att != null);
 				else
 				{
 					HistogramEntry he = m.GetHistogram(histid);
-					ok = he.generate(m);
-					SimObj = new QueueObserver(m.scheduler, m.GetQueue(observed).deadState, he.SimObj, att != null);
+					ok = he.Generate(m);
+					SimObj = new QueueObserver(m.s, m.GetQueue(observed).SimObj, he.SimObj, att != null);
 				}
 				break;
 	
 			case ACTIVE:
 				if(histid == null)
-					SimObj = new ActiveObserver(m.scheduler, m.GetActiveState(observed).activeState, new Statistics(m.scheduler), att);
+					SimObj = new ActiveObserver(m.s, m.GetActiveState(observed).SimObj, new Statistics(m.s), att);
 				else
 				{
 					HistogramEntry he = m.GetHistogram(histid);
-					ok = he.generate(m);
-					SimObj = new ActiveObserver(m.scheduler, m.GetActiveState(observed).activeState, he.SimObj, att);
+					ok = he.Generate(m);
+					SimObj = new ActiveObserver(m.s, m.GetActiveState(observed).SimObj, he.SimObj, att);
 				}
 				break;
 		
@@ -183,17 +183,17 @@ public class ObserverEntry extends Entry
 						expobj = new Expression(exp);
 				}
 
-				SimObj = new ProcessorObserver(m.scheduler, m.GetActiveState(observed).activeState, att, expobj, histid == null);
+				SimObj = new ProcessorObserver(m.s, m.GetActiveState(observed).SimObj, att, expobj, histid == null);
 				break;
 				
 			case DELAY: 
 				if(histid == null)
-					SimObj = new DelayObserver(m.scheduler, m.GetActiveState(observed).activeState, new Statistics(m.scheduler), att == null, exp == null);
+					SimObj = new DelayObserver(m.s, m.GetActiveState(observed).SimObj, new Statistics(m.s), att == null, exp == null);
 				else
 				{
 					HistogramEntry he = m.GetHistogram(histid);
-					ok = he.generate(m);
-					SimObj = new DelayObserver(m.scheduler, m.GetActiveState(observed).activeState, he.SimObj, att == null, exp == null);
+					ok = he.Generate(m);
+					SimObj = new DelayObserver(m.s, m.GetActiveState(observed).SimObj, he.SimObj, att == null, exp == null);
 				}
 				break;
 
@@ -206,13 +206,13 @@ public class ObserverEntry extends Entry
 		if(obsid == null)			// fim da lista de observadores
 			return true;
 			
-		return m.GetObserver(obsid).generate(m); // cria prï¿½ximo
+		return m.GetObserver(obsid).Generate(m); // cria próximo
 	}
 	
 	/**
-	 * Realiza o relatï¿½rio dos dados observados em forma textual;
-	 * Deve ser chamado com a simulaï¿½ï¿½o parada;
-	 * obstime ï¿½ o intervalo de tempo a que as estatï¿½sticas se referem.
+	 * Realiza o relatório dos dados observados em forma textual;
+	 * Deve ser chamado com a simulação parada;
+	 * obstime é o intervalo de tempo a que as estatísticas se referem.
 	 */
 	void DoReport(PrintStream os, float obstime)
 	{
@@ -318,197 +318,4 @@ public class ObserverEntry extends Entry
 		lastid = stream.readInt();
 		hasSerialized = true;
 	}
- 	
- 	void DoReportConsole(float obstime)
-	{
-		if(SimObj == null)	// erro
-			return;
-	
-		System.out.println("----------------------------------------------------------------------");
-		System.out.println("\r\nReport from observer " + name);
-		System.out.println("Statistics summary:");
-		
-		boolean weighted = false;
-		
-		switch(type)
-		{
-			case RESOURCE:
-				System.out.println("Number of resources permanencing in queue:");
-				weighted = true;
-				break;
-			case QUEUE:
-				if(att == null)
-				{
-					System.out.println("Queue length:");
-					weighted = true;
-				}
-				else
-					System.out.println("Entity queue time:");
-				break;
-			case ACTIVE:
-				if(att == null)
-					System.out.println("Active state idle time (or inter-arrival time for Generate states):");
-				else
-					System.out.println("Observed entity attribute " + att + ":");
-				break;
-			case DELAY:
-				if(att == null)
-				{
-					System.out.println("Timestamper observer; no statistics available.");
-					return;
-				}
-				else
-				{
-					System.out.print("Delay observed from previous stamp when ");
-					if(exp == null)
-						System.out.println("arriving:");
-					else
-						System.out.println("leaving:");
-				}
-				break;
-			case PROCESSOR:
-				System.out.println("Processor observer; no statistics available.");
-				System.out.println("Assigned " + exp + " to " + att + ".");
-				return;
-			default:
-				System.out.println("Error: unknown observer type.");
-		}
-		
-		if(weighted)
-		{
-			float div = obstime / SimObj.NumObs();
-			
-			System.out.print("Average: " + SimObj.Mean() / div);
-			System.out.print(" StdDev: " + SimObj.StdDev() / div);
-			System.out.println(" Variance: " + SimObj.Variance() / (div * div));
-			System.out.print(" Minimum: " + SimObj.Min());
-			System.out.print(" Maximum: " + SimObj.Max());
-			System.out.println(" Observations: " + SimObj.NumObs());
-		}
-		else
-		{
-			System.out.print("Average: " + SimObj.Mean());
-			System.out.print(" StdDev: " + SimObj.StdDev());
-			System.out.println(" Variance: " + SimObj.Variance());
-			System.out.print(" Minimum: " + SimObj.Min());
-			System.out.print(" Maximum: " + SimObj.Max());
-			System.out.println(" Observations: " + SimObj.NumObs());
-		}
-
-		if(histid != null)			
-			System.out.println("\r\nAditional information available for histogram with id = " + histid + ".");
-			
-		System.out.println("----------------------------------------------------------------------");
-	}
- 	
- 	StringBuffer getReportConsole(float obstime)
-	{
-		if(SimObj == null)	// erro
-			return null;
-	
-		StringBuffer result = new StringBuffer();
-		result.append("----------------------------------------------------------------------\n");
-		result.append("\r\nReport from observer " + name + "\n");
-		result.append("Statistics summary:\n");
-		
-		boolean weighted = false;
-		
-		switch(type)
-		{
-			case RESOURCE:
-				result.append("Number of resources permanencing in queue:\n");
-				weighted = true;
-				break;
-			case QUEUE:
-				if(att == null)
-				{
-					result.append("Queue length:\n");
-					weighted = true;
-				}
-				else
-					result.append("Entity queue time:\n");
-				break;
-			case ACTIVE:
-				if(att == null)
-					result.append("Active state idle time (or inter-arrival time for Generate states):\n");
-				else
-					result.append("Observed entity attribute " + att + ":\n");
-				break;
-			case DELAY:
-				if(att == null)
-				{
-					result.append("Timestamper observer; no statistics available.\n");
-					return result;
-				}
-				else
-				{
-					result.append("Delay observed from previous stamp when ");
-					if(exp == null)
-						result.append("arriving:\n");
-					else
-						result.append("leaving:\n");
-				}
-				break;
-			case PROCESSOR:
-				result.append("Processor observer; no statistics available.\n");
-                result.append("Assigned " + exp + " to " + att + ".\n");
-				return result;
-			default:
-				result.append("Error: unknown observer type.\n");
-		}
-		
-		if(weighted)
-		{
-			float div = obstime / SimObj.NumObs();
-			result.append("Average: " + SimObj.Mean() / div);
-			result.append(" StdDev: " + SimObj.StdDev() / div);
-			result.append(" Variance: " + SimObj.Variance() / (div * div) + "\n"); 
-			result.append(" Minimum: " + SimObj.Min());
-			result.append(" Maximum: " + SimObj.Max()); 
-			result.append(" Observations: " + SimObj.NumObs() + "\n");
-		}
-		else
-		{
-			result.append("Average: " + SimObj.Mean());
-			result.append(" StdDev: " + SimObj.StdDev());
-			result.append(" Variance: " + SimObj.Variance() + "\n");
-			result.append(" Minimum: " + SimObj.Min());
-			result.append(" Maximum: " + SimObj.Max());
-			result.append(" Observations: " + SimObj.NumObs() + "\n"); 
-			 
-		}
-
-		if(histid != null)			
-			result.append("\r\nAditional information available for histogram with id = " + histid + ".\n");
-		    
-		result.append("----------------------------------------------------------------------\n");	
-		return result; 
-	}
- 	
- 	public double getAvearageWeighted(float obstime) {
- 		float div = obstime / SimObj.NumObs();
- 		return SimObj.Mean() / div;
- 	}
- 	
- 	public double getStandardDeviationWeighted(float obstime) {
-  		float div = obstime / SimObj.NumObs();
- 		return SimObj.StdDev() / div;
- 	}
- 	
- 	public double getVarianceWeighted(float obstime) {
-  		float div = obstime / SimObj.NumObs();
- 		return SimObj.Variance() / (div * div);
- 	}
- 	
- 	public double getMin(float obstime) {
- 		return SimObj.Min();
- 	}
- 	
- 	public double getMax(float obstime) {
- 		return SimObj.Max();
- 	}
- 	
- 	public double getNumberOfObservations(float obstime) {
- 		return SimObj.NumObs();
- 	}
 }

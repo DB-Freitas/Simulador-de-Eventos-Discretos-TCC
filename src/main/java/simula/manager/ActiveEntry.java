@@ -1,5 +1,5 @@
 // Arquivo  ActiveEntry.java 
-// Implementaï¿½ï¿½o das Classes do Sistema de Gerenciamento da Simulaï¿½ï¿½o
+// Implementação das Classes do Sistema de Gerenciamento da Simulação
 // 21.Mai.1999 Wladimir
 
 package simula.manager;
@@ -9,20 +9,20 @@ import java.io.*;
 /**
  * Classe base para todos os estados ativos do modelo. 
  */
-public abstract class ActiveEntry extends Entry{
-  
-	public static int lastid;  // identificador ï¿½NICO para os estados ativos 
-	static boolean hasSerialized = true; // "lastid jï¿½ foi serializado"
+public abstract class ActiveEntry extends Entry
+{
+  private static int lastid;  // identificador ÚNICO para os 
+                              // estados ativos 
+	static boolean hasSerialized = true; // "lastid já foi serializado"
 		
-	// PAGLIARES: antes chamado SimObj
-  transient simula.ActiveState activeState;	// objeto de simulaï¿½ï¿½o
-                              					// nï¿½o ï¿½ serializado
-  boolean isInternal;						// se ï¿½ um estado ativo interno ou externo
+  transient simula.ActiveState SimObj;	// objeto de simulação
+                              					// não é serializado
+  boolean internal;						// se é um estado ativo interno ou externo
                               					
 	/**
 	 * FIFO, STACK, PRIORITY:
 	 * constantes que identificam
-	 * as distribuiï¿½ï¿½es de serviï¿½o
+	 * as distribuições de serviço
 	 */
   public static final short NONE    = 0;
   public static final short CONST   = 1;
@@ -30,26 +30,23 @@ public abstract class ActiveEntry extends Entry{
   public static final short NORMAL  = 3;
   public static final short NEGEXP  = 4; 
   public static final short POISSON = 5;
-  public static final short LOGNORMAL = 6;  // Criado por Pagliares
-  public static final short WEIBULL = 7;  // Criado por Pagliares
-  public static final short GAMMA = 8;  // Criado por Pagliares
-  public static final short EXPONENTIAL = 9;  // Criado por Pagliares
   
   /**
-   * tipo de distribuiï¿½ï¿½o de serviï¿½o
+   * tipo de distribuição de serviço
    */
   protected short servicedist;
   /**
    * distp1, distp2:
-   * parï¿½metros da distribuiï¿½ï¿½o;
-   * tï¿½m significados diferentes 
-   * de acordo com a distribuiï¿½ï¿½o
+   * parâmetros da distribuição;
+   * têm significados diferentes 
+   * de acordo com a distribuição
    */
-  protected double distp1, distp2;   // Pagliares - I refactored from float to double in order to generate DynamicExperimentationProgramProxy without casting to int
+  protected float distp1, distp2;
 
-  public String toString(){
+  public String toString()
+  {
 	StringBuffer stb = new StringBuffer();
-	stb.append("<ActiveEntry internal=\""+isInternal+"\" servicedist=\""+serviceDistString()+"\" distp1=\""+distp1+"\" distp2=\""+distp2+"\">\r\n");
+	stb.append("<ActiveEntry internal=\""+internal+"\" servicedist=\""+serviceDistString()+"\" distp1=\""+distp1+"\" distp2=\""+distp2+"\">\r\n");
 	stb.append("<A_super>\r\n");
 	stb.append(super.toString());
 	stb.append("</A_super>\r\n");
@@ -82,27 +79,11 @@ public abstract class ActiveEntry extends Entry{
 	{
 		return "POISSON";
 	}
-	else if(servicedist == LOGNORMAL)
-	{
-		return "LOGNORMAL";
-	}
-	else if(servicedist == WEIBULL)
-	{
-		return "WEIBULL";
-	}
-	else if(servicedist == GAMMA)
-	{
-		return "GAMMA";
-	}
-	else if(servicedist == EXPONENTIAL)
-	{
-		return "EXPONENTIAL";
-	}
 	return "SERVICEDIST???";
   }
   /**
-   * constrï¿½i um objeto com id gerado internamente;
-   * preenche com argumentos padrï¿½o os demais campos.
+   * constrói um objeto com id gerado internamente;
+   * preenche com argumentos padrão os demais campos.
    */
   public ActiveEntry()
   {
@@ -117,8 +98,8 @@ public abstract class ActiveEntry extends Entry{
   {
 	super.copyAttributes(v_e);
 	ActiveEntry actEntry = (ActiveEntry)v_e;
-	activeState = actEntry.activeState;
-	isInternal = actEntry.isInternal;
+	SimObj = actEntry.SimObj;
+	internal = actEntry.internal;
 	servicedist = actEntry.servicedist;
 	distp1 = actEntry.distp1;
 	distp2 = actEntry.distp2;
@@ -127,14 +108,14 @@ public abstract class ActiveEntry extends Entry{
   /**
    * Cria os observadores e histogramas associados
    */
-  protected boolean setup(SimulationManager m)
+  protected boolean Setup(SimulationManager m)
   {
-//System.out.println("\tActiveEntry.Setup. name = "+name);	  
-  	activeState.name = name;
+System.out.println("ActiveEntry.Setup. name = "+name);	  
+  	SimObj.name = name;
 		if(obsid == null)			// nada para criar
 			return true;
 			
-		return m.GetObserver(obsid).generate(m);
+		return m.GetObserver(obsid).Generate(m);
 	}
   	
   private void writeObject(ObjectOutputStream stream)
@@ -160,35 +141,10 @@ public abstract class ActiveEntry extends Entry{
 		hasSerialized = true;
 	}
 	
-	public short getServiceDist(){	
-		return servicedist;	
-	}
-	
-	public void setServiceDist(short v_sServiceDist){	
-		servicedist = v_sServiceDist;	
-	}
-	
-	public double getDistP1(){	
-		return distp1;	
-	}
-	
-	public double getDistP2(){	
-		return distp2;	
-	}
-	
-	public void setDistP1(double v_fDistP1){	
-		distp1 = v_fDistP1;	
-	}
-	
-	public void setDistP2(double v_fDistP2){	
-		distp2 = v_fDistP2;	
-	}
-	
-	public simula.ActiveState getActiveState() {
-		return activeState;
-	}
-	
-	public void setActiveState(simula.ActiveState activeState) {
-		this.activeState = activeState;
-	}
+	public short getServiceDist(){	return servicedist;	}
+	public void setServiceDist(short v_sServiceDist){	servicedist = v_sServiceDist;	}
+	public float getDistP1(){	return distp1;	}
+	public float getDistP2(){	return distp2;	}
+	public void setDistP1(float v_fDistP1){	distp1 = v_fDistP1;	}
+	public void setDistP2(float v_fDistP2){	distp2 = v_fDistP2;	}
 }

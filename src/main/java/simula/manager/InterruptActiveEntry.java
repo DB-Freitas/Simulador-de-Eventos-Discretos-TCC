@@ -1,5 +1,5 @@
 // Arquivo  InterruptActiveEntry.java 
-// Implementaï¿½ï¿½o das Classes do Sistema de Gerenciamento da Simulaï¿½ï¿½o
+// Implementação das Classes do Sistema de Gerenciamento da Simulação
 // 21.Mai.1999 Wladimir
 
 package simula.manager;
@@ -33,11 +33,11 @@ public class InterruptActiveEntry extends InternalActiveEntry
 	return stb.toString();
   }
   /**
-   * constrï¿½i um objeto com id gerado internamente.
+   * constrói um objeto com id gerado internamente.
    */
   public InterruptActiveEntry()
   {
-    super(false); // ï¿½ uma Activity
+    super(false); // é uma Activity
    	interrupts = new Vector(2, 2);
   }
   
@@ -48,19 +48,19 @@ public class InterruptActiveEntry extends InternalActiveEntry
 	interrupts = intpEntry.interrupts;
   }
   
-  boolean generate(SimulationManager m)
+  boolean Generate(SimulationManager m)
 	{
-		activeState = new InterruptActivity(m.scheduler);
+		SimObj = new InterruptActivity(m.s);
 
-		return setup(m);
+		return Setup(m);
 	}
 
   /**
-   * Ajusta os parï¿½metros referentes aos Router's e Activity's
+   * Ajusta os parâmetros referentes aos Router's e Activity's
    */
-  protected boolean setup(SimulationManager m)
+  protected boolean Setup(SimulationManager m)
   {
-		if(!super.setup(m))
+		if(!super.Setup(m))
 			return false;
 			
 		InterruptActiveEntry e = null;
@@ -68,11 +68,11 @@ public class InterruptActiveEntry extends InternalActiveEntry
 		for(int i = 0; i < interrupts.size(); i++)
 		{
 			e = (InterruptActiveEntry)m.GetActiveState((String)interrupts.get(i));
-			if(e.activeState == null)	// se ainda nï¿½o foi gerado
-				if(!e.generate(m))	// gera
+			if(e.SimObj == null)	// se ainda não foi gerado
+				if(!e.Generate(m))	// gera
 					return false;			
-			((InterruptActivity)activeState).
-				AddInterruptable((InterruptActivity)e.activeState);	
+			((InterruptActivity)SimObj).
+				AddInterruptable((InterruptActivity)e.SimObj);	
 		}
 		
 		return true;
@@ -84,7 +84,7 @@ public class InterruptActiveEntry extends InternalActiveEntry
   
   /**
    * chama trimToSize() para cada Vector interno
-   * para economizar memï¿½ria alocada
+   * para economizar memória alocada
    */
   public void TrimVectors()
 	{

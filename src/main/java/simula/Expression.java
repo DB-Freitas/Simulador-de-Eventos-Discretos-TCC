@@ -1,5 +1,5 @@
 // Arquivo Expression.java
-// Implementaï¿½ï¿½o das Classes do Grupo Utilitï¿½rio da Biblioteca de Simulaï¿½ï¿½o JAVA
+// Implementação das Classes do Grupo Utilitário da Biblioteca de Simulação JAVA
 // 26.Mar.1999	Wladimir
 
 package simula;
@@ -10,14 +10,14 @@ import java.io.*;
 public class Expression
 {
 
-	private String rpn;						// expressï¿½o na forma rpn
-	private Stack stack;					// pilha para execuï¿½ï¿½o da expressï¿½o na forma rpn
+	private String rpn;						// expressão na forma rpn
+	private Stack stack;					// pilha para execução da expressão na forma rpn
 	private String errm;					// mensagem de erro de parsing
 
 	private static PushbackReader infix;	// stream que permite lookahead
-	private static short token;				// ï¿½ltimo token
-	private static String att;				// atributo do ï¿½ltimo token retornado
-	private static String last;				// ï¿½ltimo valor (num ou id) obtido pelo lex
+	private static short token;				// último token
+	private static String att;				// atributo do último token retornado
+	private static String last;				// último valor (num ou id) obtido pelo lex
 	private static boolean err;				// flag erro de parsing
 	private static StringBuffer errmsg;		// ref ao buffer suprido pelo objeto
 
@@ -44,26 +44,24 @@ public class Expression
 								EOF	= 18;	// fim da linha
 
 	/**
-	 * tabela de variï¿½veis globais da simulaï¿½ï¿½o.
+	 * tabela de variáveis globais da simulação.
 	 */
 	public static Variables globals;	
-	
-	public static String expression; // Pagliares code to keep the expression in the normal format ( a < 2 , instead of < a 2 )
 
 	private static void Debug()
 	{
 		System.out.println("token=" + token + " " + att);
 	}
 	private static void GetToken()
-	// analisador lï¿½xico
-	// armazena em 'token' tipo do prï¿½ximo token da expressï¿½o em infix; atributo fica em att.
+	// analisador léxico
+	// armazena em 'token' tipo do próximo token da expressão em infix; atributo fica em att.
 	{
 		try			// read throws IOException
 		{
 		
 		char c = (char)infix.read();
 			
-		while(Character.isWhitespace(c))							// come os espaï¿½os
+		while(Character.isWhitespace(c))							// come os espaços
 			c = (char)infix.read();
 
 		if(c == (char)-1)
@@ -92,7 +90,7 @@ public class Expression
 			return;
 		}
 
-		if(Character.isDigit(c) || c == '.' || (c == '-' && unaryminusok))	// tenta extrair um nï¿½mero
+		if(Character.isDigit(c) || c == '.' || (c == '-' && unaryminusok))	// tenta extrair um número
 		{
 			unaryminusok = false; 
 			boolean pread = false;
@@ -104,7 +102,7 @@ public class Expression
 			do
 			{
 				mallow = false;
-				if(c == '.') pread = true;		// mudanï¿½as de estado
+				if(c == '.') pread = true;		// mudanças de estado
 				if((c == 'e') || (c == 'E'))
 				{
 					eread = true;
@@ -118,7 +116,7 @@ public class Expression
 			} while(Character.isDigit(c) || (c == '.' && !pread) 
 				|| (c == '-' && mallow) || ((c == 'e' || c == 'E') && !eread));
 
-			if((Character.isLetter(c) || c == '.' || c > '~') && c != (char)-1) // erro lï¿½xico
+			if((Character.isLetter(c) || c == '.' || c > '~') && c != (char)-1) // erro léxico
 			{
 				buf.append(c);
 				att = buf.toString();
@@ -192,22 +190,21 @@ public class Expression
 	}
 
 	/**
-	 * analisa expressï¿½o exp e retorna-a na forma rpn se estiver correta, senï¿½o null.
+	 * analisa expressão exp e retorna-a na forma rpn se estiver correta, senão null.
 	 */
 	protected static synchronized String Parse(String exp, StringBuffer errm)
 	{
-		expression = exp;
 		if(exp == null)
 			return null;
 		errmsg = errm;	// liga ao buffer do objeto 
-		// cria analisador lï¿½xico e ajusta parï¿½metros
+		// cria analisador léxico e ajusta parâmetros
 		infix = new PushbackReader(new StringReader(exp));
-		unaryminusok = true;			// "permite" nï¿½meros negativos
+		unaryminusok = true;			// "permite" números negativos
 
-		// comeï¿½a anï¿½lise sintï¿½tica
-		GetToken();						// lï¿½ o primeiro token
+		// começa análise sintática
+		GetToken();						// lê o primeiro token
 		String t = C();
-		// limpa temporï¿½rios
+		// limpa temporários
 		infix = null;
 		att = null;
 		unaryminusok = false;
@@ -219,8 +216,8 @@ public class Expression
 	}
 
 	/** 
-	 * analisador sintï¿½tico LL(1) usando a tï¿½cnica de predictive parsing
-	 * Exp lï¿½gica
+	 * analisador sintático LL(1) usando a técnica de predictive parsing
+	 * Exp lógica
 	 */ 
 	private static String  C()
 	{
@@ -408,7 +405,7 @@ public class Expression
 	}
 
 	/**
-	 * constrï¿½i expressï¿½o constante (para ser usado pelas subclasses)
+	 * constrói expressão constante (para ser usado pelas subclasses)
 	 */
 	protected Expression(float value)
 	{
@@ -418,7 +415,7 @@ public class Expression
 	}
 	
 	/**
-	 * constrï¿½i expressï¿½o a partir de uma string contendo-a na forma infixa.
+	 * constrói expressão a partir de uma string contendo-a na forma infixa.
 	 */
 	public Expression(String infix)
 	{
@@ -433,7 +430,7 @@ public class Expression
 	}
 	
 	/**
-	 * determina valor da expressï¿½o utilizando parï¿½metros da entidade e e das variï¿½veis globais.
+	 * determina valor da expressão utilizando parâmetros da entidade e e das variáveis globais.
 	 */
 	public float Evaluate(Entity e)
 	{
@@ -451,10 +448,10 @@ public class Expression
 		{
 			if(is.ttype == StreamTokenizer.TT_WORD)
 			{
-				if(Character.isLetter(is.sval.charAt(0)))			// ï¿½ um identificador
+				if(Character.isLetter(is.sval.charAt(0)))			// é um identificador
 				{
-					// faz procura nas propriedades e variï¿½veis globais
-					float x = e.getAttribute(is.sval);
+					// faz procura nas propriedades e variáveis globais
+					float x = e.GetAttribute(is.sval);
 					if(Float.isNaN(x))
 					{
 						if(globals != null)
@@ -465,7 +462,7 @@ public class Expression
 						return Float.NaN;		
 					stack.push(new Float(x));	
 				}
-				else													// ï¿½ nï¿½emero
+				else													// é núemero
 				{
 					try
 					{

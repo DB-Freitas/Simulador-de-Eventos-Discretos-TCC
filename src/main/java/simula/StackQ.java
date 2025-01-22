@@ -1,5 +1,5 @@
 // Arquivo StackQ.java
-// Implementaï¿½ï¿½o das Classes do Grupo de Modelagem da Biblioteca de Simulaï¿½ï¿½o JAVA
+// Implementação das Classes do Grupo de Modelagem da Biblioteca de Simulação JAVA
 // 26.Mar.1999	Wladimir
 
 package simula;
@@ -11,7 +11,7 @@ public class StackQ extends DeadState
 	private Stack q;					// implementa fila como vetor
 
 	/**
-	 * constrï¿½i uma fila vazia com capacidade para max entidades.
+	 * constrói uma fila vazia com capacidade para max entidades.
 	 */
 	public StackQ(Scheduler s, short max)
 	{
@@ -21,7 +21,7 @@ public class StackQ extends DeadState
 	} 
 	
 	/**
-	 * constrï¿½i uma fila vazia com capacidade ilimitada. 
+	 * constrói uma fila vazia com capacidade ilimitada. 
 	 */
 	public StackQ(Scheduler s)
 	{
@@ -31,46 +31,46 @@ public class StackQ extends DeadState
 	}
 	
 	/**
-	 * Coloca objeto em seu estado inicial para simulaï¿½ï¿½o
+	 * Coloca objeto em seu estado inicial para simulação
 	 */
-	public void clear()
+	public void Clear()
 	{
-		super.clear();
+		super.Clear();
 		q.clear();
 	}
 
 	/**
-	 * implementa a interface segundo a polï¿½tica FIFO; atualiza atributos de tamanho.
+	 * implementa a interface segundo a política FIFO; atualiza atributos de tamanho.
 	 */
-	public void enqueue(Entity e)
+	public void Enqueue(Entity e)
 	{
 		if(obs != null)
 			obs.Incoming(e);
 		q.push(e);
 		count++;
-		e.setQueueEnterTime(s.GetClock());
+		e.EnteredQueue(s.GetClock());
 	}
 	
 	/**
-	 * implementa a interface segundo a polï¿½tica FIFO; atualiza atributos de tamanho.
+	 * implementa a interface segundo a política FIFO; atualiza atributos de tamanho.
 	 */
-	public void putBack(Entity e)
+	public void PutBack(Entity e)
 	{	
 		if(obs != null)
 			obs.Incoming(e);
 		q.push(e);
 		count++;
-		e.setQueueEnterTime(s.GetClock());
+		e.EnteredQueue(s.GetClock());
 	}
 	/**
-	 * implementa a interface segundo a polï¿½tica FIFO; atualiza atributos de tamanho.
+	 * implementa a interface segundo a política FIFO; atualiza atributos de tamanho.
 	 */
-	public Entity dequeue()
+	public Entity Dequeue()
 	{
 		try
 		{
 			Entity e = (Entity)q.peek();
-			e.leftQueue(s.GetClock());
+			e.LeftQueue(s.GetClock());
 			if(obs != null)
 				obs.Outgoing(e);
 			q.pop();

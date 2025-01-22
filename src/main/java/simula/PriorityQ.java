@@ -1,5 +1,5 @@
 // Arquivo PriorityQ.java
-// Implementaï¿½ï¿½o das Classes do Grupo de Modelagem da Biblioteca de Simulaï¿½ï¿½o JAVA
+// Implementação das Classes do Grupo de Modelagem da Biblioteca de Simulação JAVA
 // 26.Mar.1999	Wladimir
 
 package simula;
@@ -14,7 +14,7 @@ public class PriorityQ extends DeadState
 	private Vector q;					// implementa fila como vetor
 
 	/**
-	 * constrï¿½i uma fila vazia com capacidade para max entidades. 
+	 * constrói uma fila vazia com capacidade para max entidades. 
 	 */
 	public PriorityQ(Scheduler s, int max)
 	{
@@ -23,7 +23,7 @@ public class PriorityQ extends DeadState
 	} 
 	
 	/**
-	 * constrï¿½i uma fila vazia com capacidade ilimitada. 
+	 * constrói uma fila vazia com capacidade ilimitada. 
 	 */
 	public PriorityQ(Scheduler s)
 	{
@@ -32,26 +32,26 @@ public class PriorityQ extends DeadState
 	}
 	
 	/**
-	 * Coloca objeto em seu estado inicial para simulaï¿½ï¿½o
+	 * Coloca objeto em seu estado inicial para simulação
 	 */
-	public void clear()
+	public void Clear()
 	{
-		super.clear();
+		super.Clear();
 		q.clear();
 	}
 	
 	/**
-	 * implementa a interface segundo a polï¿½tica priority FIFO; atualiza atributos de tamanho.
+	 * implementa a interface segundo a política priority FIFO; atualiza atributos de tamanho.
 	 */
-	public void enqueue(Entity e)
+	public void Enqueue(Entity e)
 	{
 		if(obs != null)
 			obs.Incoming(e);
-		e.setQueueEnterTime(s.GetClock());
-		int min, max, cur;	// max pode ser negativo (qdo for inserir no comeï¿½o)
+		e.EnteredQueue(s.GetClock());
+		int min, max, cur;	// max pode ser negativo (qdo for inserir no começo)
 		Entity e2;
-		// encontra posiï¿½ï¿½o de inserï¿½ï¿½o baseado na prioridade da Entity e.
-		// implementa busca binï¿½ria, jï¿½ que os elementos esï¿½o ordenados por prioridade.
+		// encontra posição de inserção baseado na prioridade da Entity e.
+		// implementa busca binária, já que os elementos esão ordenados por prioridade.
 		min = 0;
 		max = q.size() - 1;
 		cur = 0;
@@ -59,35 +59,35 @@ public class PriorityQ extends DeadState
 		{
 			cur = (min + max) / 2;
 			e2 = (Entity)q.elementAt(cur);
-			if(e.getPriority() < e2.getPriority())
+			if(e.GetPriority() < e2.GetPriority())
 				max = cur - 1;
-			else if(e.getPriority() >= e2.getPriority())	// apï¿½s os de mesma prioridade 
-				min = ++cur;								// que jï¿½ estï¿½o na fila
+			else if(e.GetPriority() >= e2.GetPriority())	// após os de mesma prioridade 
+				min = ++cur;								// que já estão na fila
 		}
-		// cur contï¿½m a posiï¿½ï¿½o de inserï¿½ï¿½o
+		// cur contém a posição de inserção
 		q.insertElementAt(e, cur);
 		count++;
 	}
 	/**
-	 * implementa a interface segundo a polï¿½tica priority FIFO; atualiza atributos de tamanho.
+	 * implementa a interface segundo a política priority FIFO; atualiza atributos de tamanho.
 	 */
-	public void putBack(Entity e)
+	public void PutBack(Entity e)
 	{	
-		e.setQueueEnterTime(s.GetClock());
+		e.EnteredQueue(s.GetClock());
 		if(obs != null)
 			obs.Incoming(e);
 		q.insertElementAt(e, 0);
 		count++;
 	}
 	/**
-	 * implementa a interface segundo a polï¿½tica priority FIFO; atualiza atributos de tamanho.
+	 * implementa a interface segundo a política priority FIFO; atualiza atributos de tamanho.
 	 */
-	public Entity dequeue()
+	public Entity Dequeue()
 	{
 		try
 		{
 			Entity e = (Entity)q.firstElement();
-			e.leftQueue(s.GetClock());
+			e.LeftQueue(s.GetClock());
 			if(obs != null)
 				obs.Outgoing(e);
 			q.removeElementAt(0);

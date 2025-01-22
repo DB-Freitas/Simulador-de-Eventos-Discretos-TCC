@@ -1,5 +1,5 @@
 // Arquivo DelayObserver.java
-// Implementaï¿½ï¿½o das Classes do Grupo de Resultados da Biblioteca de Simulaï¿½ï¿½o JAVA
+// Implementação das Classes do Grupo de Resultados da Biblioteca de Simulação JAVA
 // 11.Jun.1999	Wladimir
 
 package simula;
@@ -10,9 +10,9 @@ public class DelayObserver extends ActiveObserver
 	private boolean entering;
 
 	/**
-	 * construtor que determina se esse ï¿½ um observador que mede o delay 
-	 * ou se ï¿½ um que marca a entidade com o tempo (stamp = true) e se
-	 * a aï¿½ï¿½o deve ser tomada qdo a entidade entra (entering = true) 
+	 * construtor que determina se esse é um observador que mede o delay 
+	 * ou se é um que marca a entidade com o tempo (stamp = true) e se
+	 * a ação deve ser tomada qdo a entidade entra (entering = true) 
 	 * ou sai do ActiveState (entering = false).
 	 */
 	public DelayObserver(Scheduler s, ActiveState a, Statistics st, boolean stamp, boolean entering)
@@ -36,18 +36,18 @@ public class DelayObserver extends ActiveObserver
 	private void Execute(Entity e)
 	{ 
 		if(stamp)
-			e.setTimestamp(s.GetClock());
+			e.Stamp(s.GetClock());
 		else
 		{
 			if(hist != null)
-				hist.Add(s.GetClock() - e.getTimestamp(), 1);
+				hist.Add(s.GetClock() - e.GetTimestamp(), 1);
 			else
-				stat.Add(s.GetClock() - e.getTimestamp());
+				stat.Add(s.GetClock() - e.GetTimestamp());
 		}
 	}
 
 	/**
-	 * processa entidade e manda para prï¿½ximo observer da lista
+	 * processa entidade e manda para próximo observer da lista
 	 */
 	public void Incoming(Entity e)
 	{
@@ -58,11 +58,11 @@ public class DelayObserver extends ActiveObserver
 	}
 
 	/**
-	 * processa entidade e manda para prï¿½ximo observer da lista
+	 * processa entidade e manda para próximo observer da lista
 	 */
 	public void Outgoing(Entity e)
 	{
-		if(!entering)	// se deve ser processada na saï¿½da...
+		if(!entering)	// se deve ser processada na saída...
 			Execute(e);
 		if(next != null)
 			next.Outgoing(e);

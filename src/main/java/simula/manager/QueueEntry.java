@@ -1,46 +1,42 @@
 // Arquivo  QueueEntry.java 
-// Implementaï¿½ï¿½o das Classes do Sistema de Gerenciamento da Simulaï¿½ï¿½o
+// Implementação das Classes do Sistema de Gerenciamento da Simulação
 // 21.Mai.1999 Wladimir
 
 package simula.manager;
 
 import java.io.*;
-import simula.Entity; // pagliares
 
- 
- 
 /**
  * Entrada para as filas de entidades do modelo.
  */
 public class QueueEntry extends Entry
 {
-	private static int lastid;	// identificador ï¿½NICO para as filas
-	static boolean hasSerialized = true; // "lastid jï¿½ foi serializado"
-	public int initialQuantity;
+	private static int lastid;	// identificador ÚNICO para as filas
+	static boolean hasSerialized = true; // "lastid já foi serializado"
 	
 	/**
 	 * FIFO, STACK, PRIORITY:
 	 * constantes que identificam
-	 * a polï¿½tica da fila
+	 * a política da fila
 	 */
 	public final static short FIFO = 0;			// constantes que identificam
-	public final static short STACK = 1;		// a polï¿½tica da fila
+	public final static short STACK = 1;		// a política da fila
 	public final static short PRIORITY = 2;
 		
 	/**
-	 * qtde mï¿½x de entidades na fila
+	 * qtde máx de entidades na fila
 	 */
 	private short max;
 	/**
-	 * polï¿½tica da fila
+	 * política da fila
 	 */ 
 	private short policy;							
 		
-  public transient simula.DeadState deadState;	// objeto de simulaï¿½ï¿½o
-                              			// nï¿½o ï¿½ serializado
-  										// PAGLIARES: SimObj antes de refatorar
+  transient simula.DeadState SimObj;	// objeto de simulação
+                              			// não é serializado
 	
-	public String toString()	{
+	public String toString()
+	{
 		StringBuffer stb = new StringBuffer();
 		stb.append("<QueueEntry max=\""+max+"\" policy=\""+policyString()+"\">\r\n");
 		stb.append("<Q_super>\r\n");
@@ -49,37 +45,41 @@ public class QueueEntry extends Entry
 		stb.append("</QueueEntry>\r\n");
 		return stb.toString();
 	}
-	
-	String policyString(){
-		if(policy == FIFO){
+	String policyString()
+	{
+		if(policy == FIFO)
+		{
 			return "FIFO";
 		}
-		else if(policy == STACK){
+		else if(policy == STACK)
+		{
 			return "STACK";
 		}
-		else if(policy == PRIORITY){
+		else if(policy == PRIORITY)
+		{
 			return "PRIORITY";
 		}
 		return "POLICY??";
 	}
-	
   /**
-   * constrï¿½i um objeto com id gerado internamente;
-   * preenche com argumentos padrï¿½o os demais campos.
+   * constrói um objeto com id gerado internamente;
+   * preenche com argumentos padrão os demais campos.
    */
-	public QueueEntry(){
+	public QueueEntry()
+	{
 		super("q_" + String.valueOf(lastid));
 		lastid++;
-		max = (short)1000;
-		policy = FIFO;
+    max = (short)10;
+    policy = FIFO;
 	}
 	
-	public void copyAttributes(Entry v_e){
+	public void copyAttributes(Entry v_e)
+	{
 		super.copyAttributes(v_e);
 		QueueEntry qEntry = (QueueEntry)v_e;
 		max = qEntry.max;
 		policy = qEntry.policy;
-		deadState = qEntry.deadState;
+		SimObj = qEntry.SimObj;
 	}
 	
 	public final short getMax(){	return max;	}
@@ -88,39 +88,27 @@ public class QueueEntry extends Entry
 	public final void setPolicy(short v_sPolicy){	policy = v_sPolicy;	}
 	
 	
-	boolean generate(SimulationManager m)	{   
-		switch(policy)	{
-			case FIFO: 
-				deadState = new simula.FifoQ(m.scheduler, max); 
-				if (initialQuantity != 0)    // pagliares
-		 			m.quantityOfEntitiesInClass = initialQuantity; // Assume que inicialmente apenas um dea state possui um numero de entidades diferente de zero
-				createAndEnqueueEntities(); // Pagliares
-				break;
-			case STACK:
-				deadState = new simula.StackQ(m.scheduler, max); 
-				if (initialQuantity != 0)    // pagliares
-		 			m.quantityOfEntitiesInClass = initialQuantity; // Assume que inicialmente apenas um dea state possui um numero de entidades diferente de zero
-				createAndEnqueueEntities(); // Pagliares
-				break;
-			case PRIORITY: 
-				deadState = new simula.PriorityQ(m.scheduler, max);
-				if (initialQuantity != 0)    // pagliares
-		 			m.quantityOfEntitiesInClass = initialQuantity; // Assume que inicialmente apenas um dea state possui um numero de entidades diferente de zero
-				createAndEnqueueEntities(); // Pagliares
-				break;
-			default: 
-				return false;
+	boolean Generate(SimulationManager m)
+	{
+		switch(policy)
+		{
+			case FIFO: SimObj = new simula.FifoQ(m.s, max); break;
+			case STACK: SimObj = new simula.StackQ(m.s, max); break;
+			case PRIORITY: SimObj = new simula.PriorityQ(m.s, max); break;
+			default: return false;
 		}
 
-		deadState.name = name;
+		SimObj.name = name;
 				
 		if(obsid != null)
-			return m.GetObserver(obsid).generate(m);
+			return m.GetObserver(obsid).Generate(m);
 			
 		return true;
 	}
 	
-	private void writeObject(ObjectOutputStream stream) throws IOException{
+	private void writeObject(ObjectOutputStream stream)
+     throws IOException
+	{
 		stream.defaultWriteObject();
 		
 		if(hasSerialized)
@@ -129,8 +117,9 @@ public class QueueEntry extends Entry
 		stream.writeInt(lastid);
 		hasSerialized = true;
 	}
-	
- 	private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException{
+ 	private void readObject(ObjectInputStream stream)
+     throws IOException, ClassNotFoundException
+	{
 		stream.defaultReadObject();
 		
 		if(hasSerialized)
@@ -139,17 +128,4 @@ public class QueueEntry extends Entry
 		lastid = stream.readInt();
 		hasSerialized = true;
 	}
- 	
- 	// The method below, before the statement break as developed by Rodrigo Pagliares to cope with the problem of
- 	// starting a simulation without using generate activities, placing some 
- 	// initial entities on the first queue of the simulation. Make the same to the other options of the 
- 	// switch, refactoring 
- 	private boolean createAndEnqueueEntities() {
- 		for (int i=0; i < initialQuantity; i++) {
- 			Entity e = new Entity(0); // 0 is the time of creation. I am using zero to indicate before simulation start
- 			deadState.enqueue(e);  
- 		}
- 		
- 		return true;
- 	}
 }
