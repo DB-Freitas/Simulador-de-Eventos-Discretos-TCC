@@ -8,7 +8,7 @@ public class Main
 {
     public static void main (String args[])
     {
-        System.out.println("\nGeracao de HBC atraves de Simulation Manager");
+        System.out.println("\nGeracao de Door Control Simulation atraves de Simulation Manager");
         SimulationManager man= new SimulationManager();
 
         QueueEntry qe;//queues
@@ -18,135 +18,39 @@ public class Main
         ObserverEntry oe;
         HistogramEntry he;
 
-        //queues and observer queues
-
+        //queues
         qe = new QueueEntry();
-        qe.SetId("WAIT0");//mapped by dead id
-        qe.setObsid("CALLER_OBS");//observer
+        qe.SetId("WAIT_OPEN_DOOR"); // Esperando comando para abrir a porta
         man.AddQueue(qe);
 
         qe = new QueueEntry();
-        qe.SetId("WAIT1");//mapped by dead id
-        qe.setObsid("INQUIRER_OBS");//observer
-        man.AddQueue(qe);
-
-        re = new ResourceEntry();
-        re.SetId("IDLE");//mapped by dead id
-        re.setInit((short)1);
-        re.setObsid("CLERK_OBS");//observer
-        man.AddResource(re);
-
-        qe = new QueueEntry();
-        qe.SetId("B0");//mapped by dead id
+        qe.SetId("WAIT_DOOR_ACTUATOR"); // Esperando atuador
         man.AddQueue(qe);
 
         qe = new QueueEntry();
-        qe.SetId("B1");//mapped by dead id
+        qe.SetId("WAIT_DOOR_SENSORS"); // Esperando sensores
         man.AddQueue(qe);
 
-        //active states
-
-        //externals (generates and destroys)
-
-        eae = new ExternalActiveEntry(true); //generate
-        eae.SetId("ARRIVE"); //mapped by generate id
-        eae.setQID("WAIT1"); // mapped by next dead
-        eae.setServiceDist( ActiveEntry.UNIFORM);// mapped by stat type
-        eae.setDistP1(1);// mapped by parm1
-        eae.setDistP2(4); //mapped by parm2
-        man.AddActiveState(eae);
-
-        eae = new ExternalActiveEntry(true); //generate
-        eae.SetId("CALLING"); //mapped by generate id
-        eae.setQID("WAIT0"); // mapped by next dead
-        eae.setServiceDist( ActiveEntry.UNIFORM);// mapped by stat type
-        eae.setDistP1(1);// mapped by parm1
-        eae.setDistP2(9); //mapped by parm2
-        man.AddActiveState(eae);
-
-        eae = new ExternalActiveEntry(false); //destroy
-        eae.SetId("OUT0"); //mapped by destroy id
-        eae.setQID("B0"); // mapped by prev dead
-        man.AddActiveState(eae);
-
-        eae = new ExternalActiveEntry(false); //destroy
-        eae.SetId("OUT1"); //mapped by destroy id
-        eae.setQID("B1"); // mapped by prev dead
-        man.AddActiveState(eae);
-
-
-        //internals (activities and routers)
-
-
-        iae = new InternalActiveEntry(true); //isn't router
-        iae.SetId("TALK"); //mapped by act id
-        iae.setServiceDist(ActiveEntry.NORMAL);// mapped by stat type
-        eae.setDistP1(2);// mapped by parm1
-        eae.setDistP2(9); //mapped by parm2
-//  iae.toq.add("B0");// mapped by next dead
-//  iae.fq.add("WAIT0");// mapped by prev dead
-//  iae.tor.add("IDLE");// mapped by next resource dead
-//  iae.rqty.add(new Integer(1));// mapped by init on resource dead
-//  iae.fr.add("IDLE");// mapped by prev resource dead
-        iae.addToQueue("B0");// mapped by next dead
-        iae.addFromQueue("WAIT0");// mapped by prev dead
-        iae.addToResource("IDLE");// mapped by next resource dead
-        iae.addResourceQty(new Integer(1));// mapped by init on resource dead
-        iae.addFromResource("IDLE");// mapped by prev resource dead
-
-//  iae.conds.add("true");
-        iae.addCond("true");
-        man.AddActiveState(iae);
-
-        iae = new InternalActiveEntry(true); //isn't router
-        iae.SetId("SERVICE"); //mapped by act id
-        iae.setServiceDist(ActiveEntry.NORMAL);// mapped by stat type
-        eae.setDistP1(3);// mapped by parm1
-        eae.setDistP2(9); //mapped by parm2
-//  iae.toq.add("B1");// mapped by next dead
-//  iae.fq.add("WAIT1");// mapped by prev dead
-//  iae.tor.add("IDLE");// mapped by next resource dead
-//  iae.rqty.add(new Integer(1));// mapped by init on resource dead
-//  iae.fr.add("IDLE");// mapped by prev resource dead
-        iae.addToQueue("B1");// mapped by next dead
-        iae.addFromQueue("WAIT1");// mapped by prev dead
-        iae.addToResource("IDLE");// mapped by next resource dead
-        iae.addResourceQty(new Integer(1));// mapped by init on resource dead
-        iae.addFromResource("IDLE");// mapped by prev resource dead
-
-//  iae.conds.add("true");
-        iae.addCond("true");
-        man.AddActiveState(iae);
-
+        qe = new QueueEntry();
+        qe.SetId("WAIT_FEEDBACK"); // Esperando feedback
+        man.AddQueue(qe);
 
         //observers
-
-
-        oe= new ObserverEntry(ObserverEntry.QUEUE,"WAIT0");//observer queue
-        oe.SetId("CALLER_OBS");
+        oe = new ObserverEntry(ObserverEntry.QUEUE, "WAIT_OPEN_DOOR");
+        oe.SetId("OBS_OPEN_DOOR");
         man.AddObserver(oe);
 
-        oe= new ObserverEntry(ObserverEntry.QUEUE,"WAIT1");//observer queue
-        oe.SetId("INQUIRER_OBS");
+        oe = new ObserverEntry(ObserverEntry.QUEUE, "WAIT_DOOR_ACTUATOR");
+        oe.SetId("OBS_SENSORS");
         man.AddObserver(oe);
 
-        oe= new ObserverEntry(ObserverEntry.RESOURCE,"IDLE");//observer resource
-        oe.SetId("CLERK_OBS");
+        oe = new ObserverEntry(ObserverEntry.QUEUE, "WAIT_DOOR_SENSORS");
+        oe.SetId("OBS_SENSORS");
         man.AddObserver(oe);
 
-        oe= new ObserverEntry(ObserverEntry.ACTIVE,"ARRIVE");
-        oe.SetId("INQUIRING_OBS");
+        oe = new ObserverEntry(ObserverEntry.QUEUE, "WAIT_FEEDBACK");
+        oe.SetId("OBS_FEEDBACK");
         man.AddObserver(oe);
-
-        eae = (ExternalActiveEntry)man.GetActiveState("ARRIVE");
-        eae.setObsid( "INQUIRING_OBS");
-
-        oe= new ObserverEntry(ObserverEntry.ACTIVE,"CALLING");
-        oe.SetId("CALLING_OBS");
-        man.AddObserver(oe);
-
-        eae = (ExternalActiveEntry)man.GetActiveState("CALLING");
-        eae.setObsid( "CALLING_OBS");
 
 
 
