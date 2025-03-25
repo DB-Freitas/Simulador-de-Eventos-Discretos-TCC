@@ -1,17 +1,18 @@
 // Arquivo StackQ.java
-// Implementação das Classes do Grupo de Modelagem da Biblioteca de Simulação JAVA
+// Implementaï¿½ï¿½o das Classes do Grupo de Modelagem da Biblioteca de Simulaï¿½ï¿½o JAVA
 // 26.Mar.1999	Wladimir
 
 package simula;
 
-import java.util.*;
+import java.util.EmptyStackException;
+import java.util.Stack;
 
 public class StackQ extends DeadState
 {
 	private Stack q;					// implementa fila como vetor
 
 	/**
-	 * constrói uma fila vazia com capacidade para max entidades.
+	 * constrï¿½i uma fila vazia com capacidade para max entidades.
 	 */
 	public StackQ(Scheduler s, short max)
 	{
@@ -21,7 +22,7 @@ public class StackQ extends DeadState
 	} 
 	
 	/**
-	 * constrói uma fila vazia com capacidade ilimitada. 
+	 * constrï¿½i uma fila vazia com capacidade ilimitada. 
 	 */
 	public StackQ(Scheduler s)
 	{
@@ -31,7 +32,7 @@ public class StackQ extends DeadState
 	}
 	
 	/**
-	 * Coloca objeto em seu estado inicial para simulação
+	 * Coloca objeto em seu estado inicial para simulaï¿½ï¿½o
 	 */
 	public void Clear()
 	{
@@ -40,7 +41,7 @@ public class StackQ extends DeadState
 	}
 
 	/**
-	 * implementa a interface segundo a política FIFO; atualiza atributos de tamanho.
+	 * implementa a interface segundo a polï¿½tica FIFO; atualiza atributos de tamanho.
 	 */
 	public void Enqueue(Entity e)
 	{
@@ -52,7 +53,7 @@ public class StackQ extends DeadState
 	}
 	
 	/**
-	 * implementa a interface segundo a política FIFO; atualiza atributos de tamanho.
+	 * implementa a interface segundo a polï¿½tica FIFO; atualiza atributos de tamanho.
 	 */
 	public void PutBack(Entity e)
 	{	
@@ -63,7 +64,7 @@ public class StackQ extends DeadState
 		e.EnteredQueue(s.GetClock());
 	}
 	/**
-	 * implementa a interface segundo a política FIFO; atualiza atributos de tamanho.
+	 * implementa a interface segundo a polï¿½tica FIFO; atualiza atributos de tamanho.
 	 */
 	public Entity Dequeue()
 	{

@@ -1,13 +1,13 @@
 // Arquivo Sample.java
-// Implementação das Classes do Grupo Utilitário da Biblioteca de Simulação JAVA
+// Implementaï¿½ï¿½o das Classes do Grupo Utilitï¿½rio da Biblioteca de Simulaï¿½ï¿½o JAVA
 // 26.Mar.1999	Wladimir
 
 package simula;
 
-import java.util.*;
+import java.util.Random;
 
 /**
- * Código original em C adaptado de 
+ * Cï¿½digo original em C adaptado de 
  * Watkins, Kevin. Discrete event simulation in C. 1993. McGraw-Hill International.
  */
 public class Sample
@@ -39,7 +39,7 @@ public class Sample
 	private Random str;
 
 	/**
-	 * constrói gerador com semente seed.
+	 * constrï¿½i gerador com semente seed.
 	 */
 	public Sample(long seed)
 	{
@@ -47,7 +47,7 @@ public class Sample
 	}
 	
 	/**
-	 * constrói gerador com semente seed., mas obtém semente a partir do relógio da máquina.
+	 * constrï¿½i gerador com semente seed., mas obtï¿½m semente a partir do relï¿½gio da mï¿½quina.
 	 */
 	public Sample()
 	{
@@ -60,12 +60,12 @@ public class Sample
 	public void Reset(long seed){str.setSeed(seed);}
 	
 	/**
-	 * obtém amostra uniformemente distribuída entre 0 e 1.
+	 * obtï¿½m amostra uniformemente distribuï¿½da entre 0 e 1.
 	 */
 	public double Uniform(){return str.nextDouble();}
 		
 	/**
-	 * obtém amostra exponencialmente distribuída de média 1.
+	 * obtï¿½m amostra exponencialmente distribuï¿½da de mï¿½dia 1.
 	 */
 	public double NegExp()
 	{
@@ -73,7 +73,7 @@ public class Sample
 	}
 	
 	/**
-	 * obtém amostra distribuída de acordo com Laplace de média 1.
+	 * obtï¿½m amostra distribuï¿½da de acordo com Laplace de mï¿½dia 1.
 	 */
 	public double Laplace()
 	{

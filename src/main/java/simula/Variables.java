@@ -1,29 +1,29 @@
 // Arquivo Variables.java
-// Implementação das Classes do Grupo de Modelagem da Biblioteca de Simulação JAVA
+// Implementaï¿½ï¿½o das Classes do Grupo de Modelagem da Biblioteca de Simulaï¿½ï¿½o JAVA
 // 22.Abr.1999	Wladimir
 
 package simula;
 
-import java.util.*;
+import java.util.HashMap;
 
 /**
- * Classe que guarda variáveis - pares (nome, valor)
+ * Classe que guarda variï¿½veis - pares (nome, valor)
  */
 public class Variables
 {
-	private HashMap table;			// armazém de variáveis
-	private HashMap queues;			// armazém de referências às filas
+	private HashMap table;			// armazï¿½m de variï¿½veis
+	private HashMap queues;			// armazï¿½m de referï¿½ncias ï¿½s filas
 										// para obter seus comprimentos
 	
 	public Variables()
 	// construtor
 	{
-		table = new HashMap(20);		// capacidade inicial para 20 variáveis	
+		table = new HashMap(20);		// capacidade inicial para 20 variï¿½veis	
 	}
 	
 	/**
-	 * cria variável name e inicializa com inival;
-	 * se name já existir, retorna false, senão true
+	 * cria variï¿½vel name e inicializa com inival;
+	 * se name jï¿½ existir, retorna false, senï¿½o true
 	 */
 	public boolean CreateVar(String name, float inival)
 	{
@@ -35,19 +35,19 @@ public class Variables
 	}
 	
 	/**
-	 * cria variável name e inicializa com zero;
-	 * se name já existir, retorna false, senão true
+	 * cria variï¿½vel name e inicializa com zero;
+	 * se name jï¿½ existir, retorna false, senï¿½o true
 	 */
 	public boolean CreateVar(String name){return CreateVar(name, 0);}
 	
 	/**
-	 * exclui variável name
+	 * exclui variï¿½vel name
 	 */
 	public void DeleteVar(String name){table.remove(name);}
 	
 	/**
-	 * atribui à variável name valor value;
-	 * se name não existir retorna false, senão true
+	 * atribui ï¿½ variï¿½vel name valor value;
+	 * se name nï¿½o existir retorna false, senï¿½o true
 	 */
 	public boolean SetVar(String name, float value)
 	{
@@ -59,7 +59,7 @@ public class Variables
 	}
 	
 	/**
-	 * recupera valor da variável name; se name não existir retorna NAN
+	 * recupera valor da variï¿½vel name; se name nï¿½o existir retorna NAN
 	 */
 	public float Value(String name)
 	{
@@ -76,7 +76,7 @@ public class Variables
 	}
 	
 	/**
-	 * atribui tabela contendo (nome da fila, referência)
+	 * atribui tabela contendo (nome da fila, referï¿½ncia)
 	 * de todas as filas do modelo, fazendo com que seus nomes
 	 * se tornem nomes globais; o nome de uma fila retorn seu comprimento
 	 */

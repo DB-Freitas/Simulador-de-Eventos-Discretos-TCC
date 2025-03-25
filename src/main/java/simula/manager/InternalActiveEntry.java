@@ -4,9 +4,10 @@
 
 package simula.manager;
 
-import java.util.Vector;
-//import com.tony.util.*;
+import com.tony.util.TString;
 import simula.*;
+
+import java.util.Vector;
 
 /**
  * Entrada para os estados ativos Activity e Router.
@@ -62,11 +63,11 @@ public class InternalActiveEntry extends ActiveEntry
 	for(int i=0; i<iNConds; i++)
 	{
 		String strCond = (String)conds.elementAt(i);
-//		strCond = TString.replace(strCond, "<=", ".LE.");
-//		strCond = TString.replace(strCond, ">=", ".GE.");
-//		strCond = TString.replace(strCond, "<", ".LT.");
-//		strCond = TString.replace(strCond, ">", ".GT.");
-//		strCond = TString.replace(strCond, "=", ".EQ.");
+		strCond = TString.replace(strCond, "<=", ".LE.");
+		strCond = TString.replace(strCond, ">=", ".GE.");
+		strCond = TString.replace(strCond, "<", ".LT.");
+		strCond = TString.replace(strCond, ">", ".GT.");
+		strCond = TString.replace(strCond, "=", ".EQ.");
 		stb.append(strCond+"\r\n");
 	}
 	stb.append("</conds>\r\n");

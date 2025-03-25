@@ -1,28 +1,30 @@
 // Arquivo  ActiveEntry.java 
-// Implementação das Classes do Sistema de Gerenciamento da Simulação
+// Implementaï¿½ï¿½o das Classes do Sistema de Gerenciamento da Simulaï¿½ï¿½o
 // 21.Mai.1999 Wladimir
 
 package simula.manager;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 /**
  * Classe base para todos os estados ativos do modelo. 
  */
 public abstract class ActiveEntry extends Entry
 {
-  private static int lastid;  // identificador ÚNICO para os 
+  private static int lastid;  // identificador ï¿½NICO para os 
                               // estados ativos 
-	static boolean hasSerialized = true; // "lastid já foi serializado"
+	static boolean hasSerialized = true; // "lastid jï¿½ foi serializado"
 		
-  transient simula.ActiveState SimObj;	// objeto de simulação
-                              					// não é serializado
-  boolean internal;						// se é um estado ativo interno ou externo
+  transient simula.ActiveState SimObj;	// objeto de simulaï¿½ï¿½o
+                              					// nï¿½o ï¿½ serializado
+  boolean internal;						// se ï¿½ um estado ativo interno ou externo
                               					
 	/**
 	 * FIFO, STACK, PRIORITY:
 	 * constantes que identificam
-	 * as distribuições de serviço
+	 * as distribuiï¿½ï¿½es de serviï¿½o
 	 */
   public static final short NONE    = 0;
   public static final short CONST   = 1;
@@ -32,14 +34,14 @@ public abstract class ActiveEntry extends Entry
   public static final short POISSON = 5;
   
   /**
-   * tipo de distribuição de serviço
+   * tipo de distribuiï¿½ï¿½o de serviï¿½o
    */
   protected short servicedist;
   /**
    * distp1, distp2:
-   * parâmetros da distribuição;
-   * têm significados diferentes 
-   * de acordo com a distribuição
+   * parï¿½metros da distribuiï¿½ï¿½o;
+   * tï¿½m significados diferentes 
+   * de acordo com a distribuiï¿½ï¿½o
    */
   protected float distp1, distp2;
 
@@ -82,8 +84,8 @@ public abstract class ActiveEntry extends Entry
 	return "SERVICEDIST???";
   }
   /**
-   * constrói um objeto com id gerado internamente;
-   * preenche com argumentos padrão os demais campos.
+   * constrï¿½i um objeto com id gerado internamente;
+   * preenche com argumentos padrï¿½o os demais campos.
    */
   public ActiveEntry()
   {

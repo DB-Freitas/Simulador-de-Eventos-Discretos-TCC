@@ -1,18 +1,20 @@
 // Arquivo Log.java
-// Implementação das Classes do Grupo Utilitário da Biblioteca de Simulação JAVA
+// Implementaï¿½ï¿½o das Classes do Grupo Utilitï¿½rio da Biblioteca de Simulaï¿½ï¿½o JAVA
 // 01.Nov.1999	Wladimir
 
 package simula;
 
-import java.util.*;
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
- * Classe que implementa log da simulação. Pode ser conectada a um
+ * Classe que implementa log da simulaï¿½ï¿½o. Pode ser conectada a um
  * arquivo ou a um objeto servidor de mensagens para distribuir as
- * mensagens a diversos usuários distribuídos.
- * No caso de utilização de log em arquivo, este será gravado em 
+ * mensagens a diversos usuï¿½rios distribuï¿½dos.
+ * No caso de utilizaï¿½ï¿½o de log em arquivo, este serï¿½ gravado em 
  * arquivo texto de nome "sim"aaaa/mm/dd-hh:mm:ss.log
  */
 public class Log
@@ -21,7 +23,7 @@ public class Log
 	// aqui uma ref ao obj servidor de mensagens
 	
 	/**
-	 * Abre arquivo de log para iniciar a sessão.
+	 * Abre arquivo de log para iniciar a sessï¿½o.
 	 */
 	public static boolean OpenFile()
 	{
@@ -52,7 +54,7 @@ public class Log
 	}
 	
 	protected Log()
-		{throw new RuntimeException("Classe não pode ser instanciada");}
+		{throw new RuntimeException("Classe nï¿½o pode ser instanciada");}
 	
 	/**
 	 * Registra entrada no log

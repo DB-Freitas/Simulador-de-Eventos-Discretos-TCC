@@ -1,11 +1,12 @@
 // Arquivo  InterruptActiveEntry.java 
-// Implementação das Classes do Sistema de Gerenciamento da Simulação
+// Implementaï¿½ï¿½o das Classes do Sistema de Gerenciamento da Simulaï¿½ï¿½o
 // 21.Mai.1999 Wladimir
 
 package simula.manager;
 
-import java.util.Vector;
 import simula.InterruptActivity;
+
+import java.util.Vector;
 
 /**
  * Entrada para as Activity's Interruptable's.
@@ -33,11 +34,11 @@ public class InterruptActiveEntry extends InternalActiveEntry
 	return stb.toString();
   }
   /**
-   * constrói um objeto com id gerado internamente.
+   * constrï¿½i um objeto com id gerado internamente.
    */
   public InterruptActiveEntry()
   {
-    super(false); // é uma Activity
+    super(false); // ï¿½ uma Activity
    	interrupts = new Vector(2, 2);
   }
   
@@ -56,7 +57,7 @@ public class InterruptActiveEntry extends InternalActiveEntry
 	}
 
   /**
-   * Ajusta os parâmetros referentes aos Router's e Activity's
+   * Ajusta os parï¿½metros referentes aos Router's e Activity's
    */
   protected boolean Setup(SimulationManager m)
   {
@@ -68,7 +69,7 @@ public class InterruptActiveEntry extends InternalActiveEntry
 		for(int i = 0; i < interrupts.size(); i++)
 		{
 			e = (InterruptActiveEntry)m.GetActiveState((String)interrupts.get(i));
-			if(e.SimObj == null)	// se ainda não foi gerado
+			if(e.SimObj == null)	// se ainda nï¿½o foi gerado
 				if(!e.Generate(m))	// gera
 					return false;			
 			((InterruptActivity)SimObj).
@@ -84,7 +85,7 @@ public class InterruptActiveEntry extends InternalActiveEntry
   
   /**
    * chama trimToSize() para cada Vector interno
-   * para economizar memória alocada
+   * para economizar memï¿½ria alocada
    */
   public void TrimVectors()
 	{

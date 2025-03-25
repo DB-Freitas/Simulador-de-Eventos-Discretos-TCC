@@ -1,20 +1,24 @@
 // Arquivo ObserverEntry.java 
-// Implementação das Classes do Sistema de Gerenciamento da Simulação
+// Implementaï¿½ï¿½o das Classes do Sistema de Gerenciamento da Simulaï¿½ï¿½o
 // 21.Mai.1999 Wladimir
 
 package simula.manager;
 
 import simula.*;
-import java.io.*;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintStream;
 
 /**
  * Entrada para os diveros observadores do modelo.
- * Entry.obsid é usado como link para a lista de Observadores
+ * Entry.obsid ï¿½ usado como link para a lista de Observadores
  */
 public class ObserverEntry extends Entry
 {
-	private static int lastid;	// identificador ÚNICO para os observadores
-	static boolean hasSerialized = true; // "lastid já foi serializado"
+	private static int lastid;	// identificador ï¿½NICO para os observadores
+	static boolean hasSerialized = true; // "lastid jï¿½ foi serializado"
 		
 	/**
 	 * QUEUE, RESOURCE, ACTIVE, PROCESSOR, DELAY:
@@ -31,7 +35,7 @@ public class ObserverEntry extends Entry
 	 */
 	private short type;
 	/**
-	 * id de quem é observado
+	 * id de quem ï¿½ observado
 	 */
 	private String observed;
 
@@ -39,15 +43,15 @@ public class ObserverEntry extends Entry
 	 * atributo observado<p>
 	 * para QUEUE, se "time" -> queue time, se null -> length
 	 * para RESOURCE, sempre null
-	 * para ACTIVE, se null -> idle time, senão o próprio atributo
-	 * para PROCESSOR, o atributo a que será atribuído exp
+	 * para ACTIVE, se null -> idle time, senï¿½o o prï¿½prio atributo
+	 * para PROCESSOR, o atributo a que serï¿½ atribuï¿½do exp
 	 * para DELAY, se null -> stamp, se "obs" -> mede delay
 	 */
 	private String att;							
 		
 	/**
-	 * para PROCESSOR, expressão; 
-	 * para DELAY, se null -> na entrada, se "" -> na saída
+	 * para PROCESSOR, expressï¿½o; 
+	 * para DELAY, se null -> na entrada, se "" -> na saï¿½da
 	 */
 	private String exp;		
 
@@ -60,8 +64,8 @@ public class ObserverEntry extends Entry
 															
 																
 																		
-	transient Observer SimObj;			// objeto de simulação
-                              			// não é serializado
+	transient Observer SimObj;			// objeto de simulaï¿½ï¿½o
+                              			// nï¿½o ï¿½ serializado
   			
 	public String toString()
 	{
@@ -98,8 +102,8 @@ public class ObserverEntry extends Entry
 		return "TYPE???";
 	}
 	/**
-	 * constrói um objeto com id gerado internamente;
-	 * determina o tipo do observador e quem é observado.
+	 * constrï¿½i um objeto com id gerado internamente;
+	 * determina o tipo do observador e quem ï¿½ observado.
 	 */
 	public ObserverEntry(short obsType, String who)
 	{
@@ -206,13 +210,13 @@ public class ObserverEntry extends Entry
 		if(obsid == null)			// fim da lista de observadores
 			return true;
 			
-		return m.GetObserver(obsid).Generate(m); // cria próximo
+		return m.GetObserver(obsid).Generate(m); // cria prï¿½ximo
 	}
 	
 	/**
-	 * Realiza o relatório dos dados observados em forma textual;
-	 * Deve ser chamado com a simulação parada;
-	 * obstime é o intervalo de tempo a que as estatísticas se referem.
+	 * Realiza o relatï¿½rio dos dados observados em forma textual;
+	 * Deve ser chamado com a simulaï¿½ï¿½o parada;
+	 * obstime ï¿½ o intervalo de tempo a que as estatï¿½sticas se referem.
 	 */
 	void DoReport(PrintStream os, float obstime)
 	{

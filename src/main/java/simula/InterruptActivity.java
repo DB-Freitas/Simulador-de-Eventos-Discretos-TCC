@@ -1,17 +1,17 @@
 // Arquivo InterruptActivity.java
-// Implementação das Classes do Grupo de Modelagem da Biblioteca de Simulação JAVA
+// Implementaï¿½ï¿½o das Classes do Grupo de Modelagem da Biblioteca de Simulaï¿½ï¿½o JAVA
 // 22.Abr.1999	Wladimir
 
 package simula;
 
-import java.util.*;
+import java.util.Vector;
 
 public class InterruptActivity extends Activity
 {
 	private Vector IntVector;
 	
 	/**
-	 * constrói uma atividade que interrompe e pode ser interrompida
+	 * constrï¿½i uma atividade que interrompe e pode ser interrompida
 	 */
 	public InterruptActivity(Scheduler s)
 	{
@@ -20,22 +20,22 @@ public class InterruptActivity extends Activity
 	}
 	
 	/**
-	 * adiciona a à lista das atividades que podem ser interrompidas
-	 * quando se fizer necessário (obter recurso)
+	 * adiciona a ï¿½ lista das atividades que podem ser interrompidas
+	 * quando se fizer necessï¿½rio (obter recurso)
 	 */
 	public void AddInterruptable(InterruptActivity a){IntVector.add(a);}
 
 	/**
-	 * interrompe serviço dessa atividade em favor de a;
-	 * se interrompeu, retorn true, senão false
+	 * interrompe serviï¿½o dessa atividade em favor de a;
+	 * se interrompeu, retorn true, senï¿½o false
 	 */
 	public boolean Interrupt(InterruptActivity a)
 	{
-		IntQEntry e = service_q.FromTail(); // interrompe o serviço mais demorado
+		IntQEntry e = service_q.FromTail(); // interrompe o serviï¿½o mais demorado
 		if(e == null)
-			return false;	// não tinha serviço para interromper
+			return false;	// nï¿½o tinha serviï¿½o para interromper
 			
-		for(int i = 0; i < e.ve.length; i++)		// devolve as entidades às respectivas filas
+		for(int i = 0; i < e.ve.length; i++)		// devolve as entidades ï¿½s respectivas filas
 			((DeadState)entities_from_v.elementAt(i)).PutBack(e.ve[i]);
 		
 		for(int i = 0; i < resources_from_v.size(); i++)	// e os recursos
@@ -52,10 +52,10 @@ public class InterruptActivity extends Activity
 	 */
 	public boolean CServed()
 	{
-		if(super.CServed())	// se o serviço normal foi possível...
+		if(super.CServed())	// se o serviï¿½o normal foi possï¿½vel...
 			return true;
 			
-		if(blocked)					// não vai interromper ninguém se estiver bloquado
+		if(blocked)					// nï¿½o vai interromper ninguï¿½m se estiver bloquado
 			return false;
 			
 		int esize = entities_from_v.size();
@@ -66,15 +66,15 @@ public class InterruptActivity extends Activity
 		if(!ok)
 			return false;
 
-		// se não foi, tenta interromper alguém, mas só se realmente houver entidades
-		// suficientes para se iniciar o serviço.
+		// se nï¿½o foi, tenta interromper alguï¿½m, mas sï¿½ se realmente houver entidades
+		// suficientes para se iniciar o serviï¿½o.
 		
 			
 		boolean interrupted = false;
 		for(int i = 0; i < IntVector.size() && !interrupted; i++)
 			if(((InterruptActivity)IntVector.elementAt(i)).Interrupt(this))
-				interrupted = super.CServed(); 	// se conseguiu interromper e fazer o serviço
-																				// senão tenta novamente
+				interrupted = super.CServed(); 	// se conseguiu interromper e fazer o serviï¿½o
+																				// senï¿½o tenta novamente
 	
 		return interrupted;			// avisa scheduler o que ocorreu
 	}
