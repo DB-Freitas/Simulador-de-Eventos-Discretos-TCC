@@ -1,0 +1,107 @@
+
+                    Simulation Report
+
+Simulation ended at time 500.07303
+Statistics collected from instant 0.0 during 500.07303 time units.
+
+          Observers' report
+----------------------------------------------------------------------
+
+Report from observer CA_MESSAGE_2_OBS
+Statistics summary:
+Queue length:
+Average: NaN StdDev: 0.0 Variance: 0.0
+ Minimum: 3.4028235E38 Maximum: 0.0 Observations: 0
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+Report from observer PHYSICAL_DOOR_OBS
+Statistics summary:
+Number of resources permanencing in queue:
+Average: 0.0025976207 StdDev: 0.12988104 Variance: 0.016869083
+ Minimum: 0.0 Maximum: 1.0 Observations: 2500
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+Report from observer OPEN_DOOR_OBS
+Statistics summary:
+Active state idle time (or inter-arrival time for Generate states):
+Average: NaN StdDev: 0.0 Variance: 0.0
+ Minimum: 3.4028235E38 Maximum: 0.0 Observations: 0
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+Report from observer DOOR_POSITION_FEEDBACK_OBS
+Statistics summary:
+Active state idle time (or inter-arrival time for Generate states):
+Average: 1.299 StdDev: 0.0 Variance: 0.0
+ Minimum: 3.4028235E38 Maximum: 1.299 Observations: 1
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+Report from observer CA_MESSAGE_1_OBS
+Statistics summary:
+Queue length:
+Average: 0.116910934 StdDev: 0.07867659 Variance: 0.006190005
+ Minimum: 0.0 Maximum: 9.0 Observations: 10
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+Report from observer DOOR_SENSORS_FEEDBACK_OBS
+Statistics summary:
+Active state idle time (or inter-arrival time for Generate states):
+Average: NaN StdDev: 0.0 Variance: 0.0
+ Minimum: 3.4028235E38 Maximum: 0.0 Observations: 0
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+Report from observer FEEDBACK_MESSAGE_2_OBS
+Statistics summary:
+Queue length:
+Average: NaN StdDev: 0.0 Variance: 0.0
+ Minimum: 3.4028235E38 Maximum: 0.0 Observations: 0
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+Report from observer DOOR_SENSORS_OBS
+Statistics summary:
+Number of resources permanencing in queue:
+Average: NaN StdDev: 0.0 Variance: 0.0
+ Minimum: 3.4028235E38 Maximum: 0.0 Observations: 0
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+Report from observer FEEDBACK_MESSAGE_1_OBS
+Statistics summary:
+Queue length:
+Average: NaN StdDev: 0.0 Variance: 0.0
+ Minimum: 3.4028235E38 Maximum: 0.0 Observations: 0
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+Report from observer DOOR_ACTUATOR_OBS
+Statistics summary:
+Number of resources permanencing in queue:
+Average: NaN StdDev: 0.0 Variance: 0.0
+ Minimum: 3.4028235E38 Maximum: 0.0 Observations: 0
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+Report from observer DOOR_CONTROLLER_OBS
+Statistics summary:
+Number of resources permanencing in queue:
+Average: NaN StdDev: 0.0 Variance: 0.0
+ Minimum: 3.4028235E38 Maximum: 0.0 Observations: 0
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+Report from observer OPEN_OBS
+Statistics summary:
+Active state idle time (or inter-arrival time for Generate states):
+Average: NaN StdDev: 0.0 Variance: 0.0
+ Minimum: 3.4028235E38 Maximum: 0.0 Observations: 0
+----------------------------------------------------------------------
+
+          Histograms' report
+
+Simulation Report End
