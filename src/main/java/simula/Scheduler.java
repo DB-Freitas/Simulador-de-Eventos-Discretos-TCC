@@ -198,8 +198,8 @@ public class Scheduler implements Runnable
 
 			clock = calendar.GetNextClock();
 			
-			Log.LogMessage("Scheduler: clock advanced to " + clock);
-
+//			Log.LogMessage("Scheduler: clock advanced to " + clock);
+			Log.LogMessage("Scheduler: clock advanced to " + Math.round(clock));
 			// verifica se simula��o chegou ao fim
 
 			if(clock == 0.0)			// fim das entidades

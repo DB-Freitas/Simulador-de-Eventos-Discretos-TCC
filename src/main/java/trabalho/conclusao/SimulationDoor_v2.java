@@ -85,7 +85,6 @@ public class SimulationDoor_v2 {
         internalActivity.setServiceDist(ActiveEntry.CONST);
         internalActivity.setDistP1(0.5f);
         internalActivity.addFromQueue("CA_MESSAGE_1");
-        internalActivity.addFromQueue("FEEDBACK_MESSAGE_2");
         internalActivity.addToQueue("CA_MESSAGE_2");
         internalActivity.addToResource("DOOR_CONTROLLER");
         internalActivity.addResourceQty(1);
