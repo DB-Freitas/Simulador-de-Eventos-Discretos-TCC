@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<!DOCTYPE acd PUBLIC "-//acd description//EN" "xacdml.dtd">
+<acd id="CONTROL_STRUCTURE">
+
+    <!-- Queues -->
+    <dead id="Q_1">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_1_OBS"/>
+    </dead>
+    <dead id="Q_2">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_2_OBS"/>
+    </dead>
+    <dead id="Q_3">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_3_OBS"/>
+    </dead>
+    <dead id="Q_4">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_4_OBS"/>
+    </dead>
+    <dead id="Q_5">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_5_OBS"/>
+    </dead>
+    <dead id="Q_6">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_6_OBS"/>
+    </dead>
+    <dead id="Q_7">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_7_OBS"/>
+    </dead>
+    <dead id="Q_8">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_8_OBS"/>
+    </dead>
+    <dead id="Q_9">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_9_OBS"/>
+    </dead>
+    <dead id="Q_10">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_10_OBS"/>
+    </dead>
+    <dead id="Q_11">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_11_OBS"/>
+    </dead>
+    <dead id="Q_12">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_12_OBS"/>
+    </dead>
+    <dead id="OUT">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="OUT_OBS"/>
+    </dead>
+
+    <!-- Resources -->
+    <class id="TRAFFIC_AGENT"/>
+    <class id="SCCI_MODULE"/>
+    <class id="TRAFFIC_LIGHTS"/>
+    <class id="N_TRAFFIC_SENSOR_1"/>
+    <class id="N_TRAFFIC_SENSOR_2"/>
+    <class id="P_TRAFFIC_SENSOR_1"/>
+    <class id="P_TRAFFIC_SENSOR_2"/>
+    <class id="INTERSECTION"/>
+
+    <!-- External Activities -->
+    <generate id="GENERATE_CA" class="TRAFFIC_AGENT">
+        <stat type="CONST" parm1="1.0"/>
+        <observer type="ACTIVE" name="GENERATE_CA_OBS"/>
+        <next dead="Q_8"/>
+    </generate>
+
+    <generate id="GENERATE_API_DATA" class="SCCI_MODULE">
+        <stat type="CONST" parm1="0.01"/>
+        <observer type="ACTIVE" name="GENERATE_API_DATA_OBS"/>
+        <next dead="Q_9"/>
+    </generate>
+
+    <generate id="GENERATE_VEHICLES" class="INTERSECTION">
+        <stat type="CONST" parm1="0.5"/>
+        <observer type="ACTIVE" name="GENERATE_VEHICLES_OBS"/>
+        <next dead="Q_1"/>
+    </generate>
+
+    <!-- Internal Activities -->
+    <act id="A_1">
+        <stat type="CONST" parm1="0.3"/>
+        <entity_class prev="Q_8" next="Q_10"/>
+        <entity_class prev="TRAFFIC_AGENT" next="TRAFFIC_AGENT"/>
+    </act>
+
+    <act id="A_2">
+        <stat type="CONST" parm1="0.4"/>
+        <entity_class prev="Q_9" next="Q_11"/>
+        <entity_class prev="Q_10" next="Q_11"/>
+        <entity_class prev="SCCI_MODULE" next="SCCI_MODULE"/>
+    </act>
+
+    <act id="A_3">
+        <stat type="CONST" parm1="0.1"/>
+        <entity_class prev="Q_11" next="Q_12"/>
+        <entity_class prev="TRAFFIC_LIGHTS" next="TRAFFIC_LIGHTS"/>
+    </act>
+
+    <act id="FB_3">
+        <stat type="CONST" parm1="1.0"/>
+        <entity_class prev="Q_1" next="Q_2"/>
+        <entity_class prev="Q_12" next="Q_2"/>
+        <entity_class prev="INTERSECTION" next="INTERSECTION"/>
+    </act>
+
+
+    <act id="FB_4">
+        <stat type="CONST" parm1="0.01"/>
+        <entity_class prev="Q_2" next="Q_3"/>
+        <entity_class prev="P_TRAFFIC_SENSOR_1" next="P_TRAFFIC_SENSOR_1"/>
+    </act>
+
+    <act id="FB_5">
+        <stat type="CONST" parm1="0.01"/>
+        <entity_class prev="Q_3" next="Q_4"/>
+        <entity_class prev="P_TRAFFIC_SENSOR_2" next="P_TRAFFIC_SENSOR_2"/>
+    </act>
+
+    <act id="FB_6">
+        <stat type="CONST" parm1="0.01"/>
+        <entity_class prev="Q_4" next="Q_5"/>
+        <entity_class prev="N_TRAFFIC_SENSOR_1" next="N_TRAFFIC_SENSOR_1"/>
+    </act>
+
+    <act id="FB_7">
+        <stat type="CONST" parm1="0.02"/>
+        <entity_class prev="Q_5" next="Q_6"/>
+        <entity_class prev="N_TRAFFIC_SENSOR_2" next="N_TRAFFIC_SENSOR_2"/>
+    </act>
+
+    <act id="FB_2">
+        <stat type="CONST" parm1="0.3"/>
+        <entity_class prev="Q_12" next="Q_7"/>
+        <entity_class prev="TRAFFIC_LIGHTS" next="TRAFFIC_LIGHTS"/>
+    </act>
+
+    <act id="FB_1">
+        <stat type="CONST" parm1="0.5"/>
+        <entity_class prev="Q_6" next="OUT"/>
+        <entity_class prev="Q_7" next="OUT"/>
+        <entity_class prev="SCCI_MODULE" next="SCCI_MODULE"/>
+    </act>
+
+
+    <!-- Saída -->
+    <destroy id="DESTROY_OUT" class="INTERSECTION">
+        <prev dead="OUT"/>
+    </destroy>
+
+</acd>

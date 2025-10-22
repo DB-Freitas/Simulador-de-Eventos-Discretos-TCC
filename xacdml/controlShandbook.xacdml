@@ -1,0 +1,348 @@
+<?xml version="1.0"?>
+<!DOCTYPE acd PUBLIC "-//acd description//EN" "xacdml.dtd">
+<acd id="CONTROL_STRUCTURE_HANDBOOK">
+
+<!-- Queues (ALG 1)-->
+
+    <!-- HUMAN CONTROLLER -->
+    <dead id="Q_A1">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_A1_OBS"/>
+    </dead>
+
+    <dead id="Q_A2">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_A2_OBS"/>
+    </dead>
+
+    <dead id="Q_A3">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_A3_OBS"/>
+    </dead>
+
+    <dead id="Q_A8">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_A8_OBS"/>
+    </dead>
+
+    <!-- CONTROLS -->
+    <dead id="Q_A4">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_A4_OBS"/>
+    </dead>
+
+    <dead id="Q_FB1">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_FB1_OBS"/>
+    </dead>
+
+    <!-- SENSORS 1 -->
+    <dead id="Q_A5">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_A5_OBS"/>
+    </dead>
+
+    <dead id="Q_FB2">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_FB2_OBS"/>
+    </dead>
+
+    <!--  DYSPLAYS, ALARMS, OTHER SENSORSFEEDBACK -->
+    <dead id="Q_FB3">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_FB3_OBS"/>
+    </dead>
+
+    <!--  AUTOMATED CONTROLLER -->
+    <dead id="Q_A6">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_A6_OBS"/>
+    </dead>
+
+    <dead id="Q_FB4">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_FB3_OBS"/>
+    </dead>
+
+    <dead id="Q_FB5">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_FB5_OBS"/>
+    </dead>
+
+    <!--  ACTUATORS -->
+    <dead id="Q_A7">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_A6_OBS"/>
+    </dead>
+
+    <dead id="Q_FB6">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_FB6_OBS"/>
+    </dead>
+
+    <dead id="Q_FB11">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_FB11_OBS"/>
+    </dead>
+
+    <dead id="Q_FB12">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_FB12_OBS"/>
+    </dead>
+
+    <!--  SENSORS 2 -->
+    <dead id="Q_FB7">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_FB7_OBS"/>
+    </dead>
+
+    <dead id="Q_FB9">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_FB9_OBS"/>
+    </dead>
+
+    <!--  CONTROLED PROCESS -->
+    <dead id="Q_FB8">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_FB8_OBS"/>
+    </dead>
+
+    <dead id="Q_FB10">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_FB10_OBS"/>
+    </dead>
+
+    <!--  EXTERNAL ACTIVITIES -->
+    <dead id="Q_ExtActControllerS">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_ExtActControllerS_OBS"/>
+    </dead>
+
+    <!--  PROCESS INPUTS -->
+    <dead id="Q_TrainedProcedures">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_TrainedProcedures_OBS"/>
+    </dead>
+
+    <dead id="Q_Disturbances">
+        <type struct="QUEUE" size="100" init="0"/>
+        <observer type="LENGTH" name="Q_Disturbances_OBS"/>
+    </dead>
+
+
+<!-- Resources (ALG 2) -->
+
+    <class id="HUMAN_CONTROLLER"/>
+
+    <class id="CONTROLS"/>
+
+    <class id="SENSORS_1"/>
+
+    <class id="OTHER_SENSORS_FEEDBACK"/>
+
+    <class id="TRAFFIC_AGENT"/>
+
+    <!-- COMPONENTE COM ITENS INTERNOS -->
+    <class id="AUTOMATED_CONTROLLER"/>
+    
+        <!-- Queue para o componente aninhado -->
+        <dead id="Q_CONTROL_ALG">
+            <type struct="QUEUE" size="100" init="0"/>
+            <observer type="LENGTH" name="Q_CONTROL_ALG_OBS"/>
+        </dead>
+        <!-- Atividade interna para o componente aninhado (colocar no algoritmo para já configurar essa atividade 
+            como usando o componente q ela esta dentro e as queues que chegam no componente. Validar com o professor)-->
+        <act id="ACT_CONTROL_ALG">
+            <stat type="CONST" parm1="1"/>
+            <entity_class prev="Q_A4" next="Q_CONTROL_ALG"/>
+            <entity_class prev="Q_A5" next="Q_CONTROL_ALG"/>
+            <entity_class prev="AUTOMATED_CONTROLLER" next="AUTOMATED_CONTROLLER"/>
+        </act>
+
+    <class id="ACTUATORS"/>
+
+    <class id="SENSORS_2"/>
+
+    <class id="CONTROLED_PROCESS"/>
+
+<!-- External Activities (ALG 3)-->
+
+    <generate id="GENERATE_TRAINED_PROCEDURES" class="HUMAN_CONTROLLER">
+        <stat type="CONST" parm1="1"/>
+        <observer type="ACTIVE" name="GENERATE_TRAINED_PROCEDURES_OBS"/>
+        <next dead="Q_TrainedProcedures"/>
+    </generate>
+
+    <generate id="GENERATE_CONTROLLER_S" class="HUMAN_CONTROLLER">
+        <stat type="CONST" parm1="1"/>
+        <observer type="ACTIVE" name="GENERATE_CONTROLLER_S_OBS"/>
+        <next dead="Q_ExtActControllerS"/>
+    </generate>
+
+    <generate id="GENERATE_DISTURBANCES" class="CONTROLED_PROCESS">
+        <stat type="CONST" parm1="2"/>
+        <observer type="ACTIVE" name="GENERATE_DISTURBANCES_OBS"/>
+        <next dead="Q_Disturbances"/>
+    </generate>
+
+   
+<!-- INTERNAL ACTIVITIES (ALG 4)-->
+
+    <act id="A_1">
+        <stat type="CONST" parm1="4"/>
+        <entity_class prev="Q_TrainedProcedures" next="Q_A1"/>
+        <entity_class prev="Q_ExtActControllerS" next="Q_A1"/>
+        <entity_class prev="Q_FB10" next="Q_A1"/>
+        <entity_class prev="Q_FB12" next="Q_A1"/>
+        <entity_class prev="HUMAN_CONTROLLER" next="HUMAN_CONTROLLER"/>
+    </act>
+
+    <act id="A_2">
+        <stat type="CONST" parm1="3"/>
+        <entity_class prev="Q_TrainedProcedures" next="Q_A2"/>
+        <entity_class prev="Q_ExtActControllerS" next="Q_A2"/>
+        <entity_class prev="Q_FB10" next="Q_A2"/>
+        <entity_class prev="Q_FB12" next="Q_A2"/>
+        <entity_class prev="HUMAN_CONTROLLER" next="HUMAN_CONTROLLER"/>
+    </act>
+
+    <act id="A_3">
+        <stat type="CONST" parm1="2"/>
+        <entity_class prev="Q_TrainedProcedures" next="Q_A3"/>
+        <entity_class prev="Q_ExtActControllerS" next="Q_A3"/>
+        <entity_class prev="Q_FB10" next="Q_A3"/>
+        <entity_class prev="Q_FB12" next="Q_A3"/>
+        <entity_class prev="HUMAN_CONTROLLER" next="HUMAN_CONTROLLER"/>
+    </act>
+
+    <act id="A_8">
+        <stat type="CONST" parm1="2"/>
+        <entity_class prev="Q_TrainedProcedures" next="Q_A8"/>
+        <entity_class prev="Q_ExtActControllerS" next="Q_A8"/>
+        <entity_class prev="Q_FB10" next="Q_A8"/>
+        <entity_class prev="Q_FB12" next="Q_A8"/>
+        <entity_class prev="HUMAN_CONTROLLER" next="HUMAN_CONTROLLER"/>
+    </act>
+
+    <!-- ___ -->
+    
+    <act id="A_4">
+        <stat type="CONST" parm1="2"/>
+        <entity_class prev="Q_A1" next="Q_A4"/>
+        <entity_class prev="Q_FB11" next="Q_A4"/>
+        <entity_class prev="Q_FB4" next="Q_A4"/>
+        <entity_class prev="CONTROLS" next="CONTROLS"/>
+    </act>
+
+    <act id="FB_1">
+        <stat type="CONST" parm1="1"/>
+        <entity_class prev="Q_A1" next="Q_FB1"/>
+        <entity_class prev="Q_FB11" next="Q_FB1"/>
+        <entity_class prev="Q_FB4" next="Q_FB1"/>
+        <entity_class prev="CONTROLS" next="CONTROLS"/>
+    </act>
+
+    <!-- ___ -->
+
+    <act id="A_5">
+        <stat type="CONST" parm1="4"/>
+        <entity_class prev="Q_A2" next="Q_A5"/>
+        <entity_class prev="SENSORS_1" next="SENSORS_1"/>
+    </act>
+
+    <act id="FB_2">
+        <stat type="CONST" parm1="1"/>
+        <entity_class prev="Q_A2" next="Q_FB2"/>
+        <entity_class prev="SENSORS_1" next="SENSORS_1"/>
+    </act>
+    
+    <!-- ___ -->
+
+    <act id="FB_3">
+        <stat type="CONST" parm1="1"/>
+        <entity_class prev="Q_FB5" next="Q_FB3"/>
+        <entity_class prev="Q_A3" next="Q_FB3"/>
+        <entity_class prev="Q_FB9" next="Q_FB3"/>
+        <entity_class prev="OTHER_SENSORS_FEEDBACK" next="OTHER_SENSORS_FEEDBACK"/>
+    </act>
+
+    <!-- ___ -->
+
+    <act id="A_6">
+        <stat type="CONST" parm1="4"/>
+        <entity_class prev="Q_CONTROL_ALG" next="Q_A6"/>
+        <entity_class prev="AUTOMATED_CONTROLLER" next="AUTOMATED_CONTROLLER"/>
+    </act>
+
+    <act id="FB_4">
+        <stat type="CONST" parm1="1"/>
+        <entity_class prev="Q_A4" next="Q_FB4"/>
+        <entity_class prev="Q_FB6" next="Q_FB4"/>
+        <entity_class prev="Q_FB7" next="Q_FB4"/>
+        <entity_class prev="AUTOMATED_CONTROLLER" next="AUTOMATED_CONTROLLER"/>
+    </act>
+
+    <act id="FB_5">
+        <stat type="CONST" parm1="1"/>
+        <entity_class prev="Q_A4" next="Q_FB5"/>
+        <entity_class prev="Q_FB6" next="Q_FB5"/>
+        <entity_class prev="Q_FB7" next="Q_FB5"/>
+        <entity_class prev="AUTOMATED_CONTROLLER" next="AUTOMATED_CONTROLLER"/>
+    </act>
+
+    <!-- ___ -->
+
+    <act id="A_7">
+        <stat type="CONST" parm1="1"/>
+        <entity_class prev="Q_A6" next="Q_A7"/>
+        <entity_class prev="Q_A8" next="Q_A7"/>
+        <entity_class prev="ACTUATORS" next="ACTUATORS"/>
+    </act>
+
+    <act id="FB_6">
+        <stat type="CONST" parm1="1"/>
+        <entity_class prev="Q_A6" next="Q_FB6"/>
+        <entity_class prev="Q_A8" next="Q_FB6"/>
+        <entity_class prev="ACTUATORS" next="ACTUATORS"/>
+    </act>
+
+    <act id="FB_11">
+        <stat type="CONST" parm1="1"/>
+        <entity_class prev="Q_A6" next="Q_FB11"/>
+        <entity_class prev="Q_A8" next="Q_FB11"/>
+        <entity_class prev="ACTUATORS" next="ACTUATORS"/>
+    </act>
+
+    <act id="FB_12">
+        <stat type="CONST" parm1="1"/>
+        <entity_class prev="Q_A6" next="Q_FB12"/>
+        <entity_class prev="Q_A8" next="Q_FB12"/>
+        <entity_class prev="ACTUATORS" next="ACTUATORS"/>
+    </act>
+
+    <!-- ___ -->
+
+    <act id="FB_7">
+        <stat type="CONST" parm1="1"/>
+        <entity_class prev="Q_FB8" next="Q_FB7"/>
+        <entity_class prev="SENSORS_2" next="SENSORS_2"/>
+    </act>
+
+    <act id="FB_9">
+        <stat type="CONST" parm1="1"/>
+        <entity_class prev="Q_FB8" next="Q_FB9"/>
+        <entity_class prev="SENSORS_2" next="SENSORS_2"/>
+    </act>
+
+    <!-- ___ -->
+
+    <act id="FB_8">
+        <stat type="CONST" parm1="1"/>
+        <entity_class prev="Q_Disturbances" next="Q_FB8"/>
+        <entity_class prev="CONTROLED_PROCESS" next="CONTROLED_PROCESS"/>
+    </act>
+
+    <!-- ___ -->
+
+
+</acd>
