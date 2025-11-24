@@ -52,17 +52,29 @@ public class TwoInOneOut {
         externalActivity.SetId("GENERATE_2");
         externalActivity.setQID("IN_2");
         externalActivity.setServiceDist(ActiveEntry.CONST);
-        externalActivity.setDistP1(1);
+        externalActivity.setDistP1(250);
         man.AddActiveState(externalActivity);
 
         //Internal Activities
 
         internalActivity = new InternalActiveEntry(true);
-        internalActivity.SetId("ACTIVITY");
-        internalActivity.setObsid("ACTIVITY_OBS");
+        internalActivity.SetId("ACTIVITY_1");
+        internalActivity.setObsid("ACTIVITY_1_OBS");
         internalActivity.setServiceDist(ActiveEntry.CONST);
         internalActivity.setDistP1(0);
         internalActivity.addFromQueue("IN_1");
+        internalActivity.addToQueue("OUT");
+        internalActivity.addToResource("RESOURCE");
+        internalActivity.addResourceQty(1);
+        internalActivity.addFromResource("RESOURCE");
+        internalActivity.addCond("true");
+        man.AddActiveState(internalActivity);
+
+        internalActivity = new InternalActiveEntry(true);
+        internalActivity.SetId("ACTIVITY_2");
+        internalActivity.setObsid("ACTIVITY_2_OBS");
+        internalActivity.setServiceDist(ActiveEntry.CONST);
+        internalActivity.setDistP1(1);
         internalActivity.addFromQueue("IN_2");
         internalActivity.addToQueue("OUT");
         internalActivity.addToResource("RESOURCE");
@@ -91,8 +103,13 @@ public class TwoInOneOut {
 
 
         //internal activities
-        observer = new ObserverEntry(ObserverEntry.ACTIVE, "ACTIVITY");
-        observer.SetId("ACTIVITY_OBS");
+        observer = new ObserverEntry(ObserverEntry.ACTIVE, "ACTIVITY_1");
+        observer.SetId("ACTIVITY_1_OBS");
+        observer.setName(observer.GetId());
+        man.AddObserver(observer);
+
+        observer = new ObserverEntry(ObserverEntry.ACTIVE, "ACTIVITY_2");
+        observer.SetId("ACTIVITY_2_OBS");
         observer.setName(observer.GetId());
         man.AddObserver(observer);
 

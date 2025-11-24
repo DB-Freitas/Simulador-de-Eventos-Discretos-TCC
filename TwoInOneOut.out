@@ -1,13 +1,21 @@
 
                     Simulation Report
 
-Simulation ended at time 500.95703
-Statistics collected from instant 0.0 during 500.95703 time units.
+Simulation ended at time 500.997
+Statistics collected from instant 0.0 during 500.997 time units.
 
           Observers' report
 ----------------------------------------------------------------------
 
-Report from observer ACTIVITY_OBS
+Report from observer ACTIVITY_2_OBS
+Statistics summary:
+Active state idle time (or inter-arrival time for Generate states):
+Average: 249.49951 StdDev: 0.69597054 Variance: 0.484375
+ Minimum: 249.0 Maximum: 249.99901 Observations: 2
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+Report from observer ACTIVITY_1_OBS
 Statistics summary:
 Active state idle time (or inter-arrival time for Generate states):
 Average: 99.999405 StdDev: 0.0 Variance: 0.0
@@ -18,16 +26,16 @@ Average: 99.999405 StdDev: 0.0 Variance: 0.0
 Report from observer OUT_OBS
 Statistics summary:
 Queue length:
-Average: 3.9923306 StdDev: 3.1562212 Variance: 9.961731
- Minimum: 0.0 Maximum: 8.0 Observations: 5
+Average: 2.493011 StdDev: 2.3468916 Variance: 5.5078998
+ Minimum: 0.0 Maximum: 5.0 Observations: 6
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
 Report from observer IN_2_OBS
 Statistics summary:
 Queue length:
-Average: 9.863377 StdDev: 16.60112 Variance: 275.59714
- Minimum: 0.0 Maximum: 10.0 Observations: 19
+Average: 0.0 StdDev: 0.0 Variance: 0.0
+ Minimum: 0.0 Maximum: 0.0 Observations: 2
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 

@@ -23,110 +23,131 @@ public class CONTROL_STRUCTURE
 
 
         qe = new QueueEntry();
-        qe.SetId("Q_1");//mapped by dead id
-        qe.setObsid("Q_1_OBS");//observer
+        qe.SetId("Q_A1");//mapped by dead id
+        qe.setObsid("Q_A1_OBS");//observer
         man.AddQueue(qe);
 
 
         qe = new QueueEntry();
-        qe.SetId("Q_2");//mapped by dead id
-        qe.setObsid("Q_2_OBS");//observer
+        qe.SetId("Q_A2");//mapped by dead id
+        qe.setObsid("Q_A2_OBS");//observer
         man.AddQueue(qe);
 
 
         qe = new QueueEntry();
-        qe.SetId("Q_3");//mapped by dead id
-        qe.setObsid("Q_3_OBS");//observer
+        qe.SetId("Q_A3");//mapped by dead id
+        qe.setObsid("Q_A3_OBS");//observer
         man.AddQueue(qe);
 
 
         qe = new QueueEntry();
-        qe.SetId("Q_4");//mapped by dead id
-        qe.setObsid("Q_4_OBS");//observer
+        qe.SetId("Q_FB1");//mapped by dead id
+        qe.setObsid("Q_FB1_OBS");//observer
         man.AddQueue(qe);
 
 
         qe = new QueueEntry();
-        qe.SetId("Q_5");//mapped by dead id
-        qe.setObsid("Q_5_OBS");//observer
+        qe.SetId("Q_FB2");//mapped by dead id
+        qe.setObsid("Q_FB2_OBS");//observer
         man.AddQueue(qe);
 
 
         qe = new QueueEntry();
-        qe.SetId("Q_6");//mapped by dead id
-        qe.setObsid("Q_6_OBS");//observer
+        qe.SetId("Q_FB3");//mapped by dead id
+        qe.setObsid("Q_FB3_OBS");//observer
         man.AddQueue(qe);
 
 
         qe = new QueueEntry();
-        qe.SetId("Q_7");//mapped by dead id
-        qe.setObsid("Q_7_OBS");//observer
+        qe.SetId("Q_FB4");//mapped by dead id
+        qe.setObsid("Q_FB4_OBS");//observer
         man.AddQueue(qe);
 
 
         qe = new QueueEntry();
-        qe.SetId("Q_8");//mapped by dead id
-        qe.setObsid("Q_8_OBS");//observer
+        qe.SetId("Q_FB5");//mapped by dead id
+        qe.setObsid("Q_FB5_OBS");//observer
         man.AddQueue(qe);
 
 
         qe = new QueueEntry();
-        qe.SetId("Q_9");//mapped by dead id
-        qe.setObsid("Q_9_OBS");//observer
+        qe.SetId("Q_FB6");//mapped by dead id
+        qe.setObsid("Q_FB6_OBS");//observer
         man.AddQueue(qe);
 
 
         qe = new QueueEntry();
-        qe.SetId("Q_10");//mapped by dead id
-        qe.setObsid("Q_10_OBS");//observer
+        qe.SetId("Q_FB7");//mapped by dead id
+        qe.setObsid("Q_FB7_OBS");//observer
         man.AddQueue(qe);
 
 
         qe = new QueueEntry();
-        qe.SetId("Q_11");//mapped by dead id
-        qe.setObsid("Q_11_OBS");//observer
+        qe.SetId("Q_GENERATE_VEHICLES");//mapped by dead id
+        qe.setObsid("Q_GENERATE_VEHICLES_OBS");//observer
         man.AddQueue(qe);
 
 
         qe = new QueueEntry();
-        qe.SetId("Q_12");//mapped by dead id
-        qe.setObsid("Q_12_OBS");//observer
+        qe.SetId("Q_GENERATE_API");//mapped by dead id
+        qe.setObsid("Q_GENERATE_API_OBS");//observer
         man.AddQueue(qe);
 
 
         qe = new QueueEntry();
-        qe.SetId("OUT");//mapped by dead id
-        qe.setObsid("OUT_OBS");//observer
+        qe.SetId("Q_CONTROL_ALG");//mapped by dead id
+        qe.setObsid("Q_CONTROL_ALG_OBS");//observer
         man.AddQueue(qe);
 
+        re = new ResourceEntry();
+        re.SetId("TRAFFIC_AGENT");//mapped by dead id
+        re.setInit((short) 1);
+        man.AddResource(re);
+        re = new ResourceEntry();
+        re.SetId("SCCI_MODULE");//mapped by dead id
+        re.setInit((short) 1);
+        man.AddResource(re);
+        re = new ResourceEntry();
+        re.SetId("TRAFFIC_LIGHTS");//mapped by dead id
+        re.setInit((short) 1);
+        man.AddResource(re);
+        re = new ResourceEntry();
+        re.SetId("N_TRAFFIC_SENSOR_1");//mapped by dead id
+        re.setInit((short) 1);
+        man.AddResource(re);
+        re = new ResourceEntry();
+        re.SetId("N_TRAFFIC_SENSOR_2");//mapped by dead id
+        re.setInit((short) 1);
+        man.AddResource(re);
+        re = new ResourceEntry();
+        re.SetId("P_TRAFFIC_SENSOR_1");//mapped by dead id
+        re.setInit((short) 1);
+        man.AddResource(re);
+        re = new ResourceEntry();
+        re.SetId("P_TRAFFIC_SENSOR_2");//mapped by dead id
+        re.setInit((short) 1);
+        man.AddResource(re);
+        re = new ResourceEntry();
+        re.SetId("INTERSECTION");//mapped by dead id
+        re.setInit((short) 1);
+        man.AddResource(re);
         //active states
 
         //externals (generates and destroys)
 
         eae = new ExternalActiveEntry(true); //generate
-        eae.SetId("GENERATE_CA"); //mapped by generate id
-        eae.setQID("Q_8"); // mapped by next dead
-        eae.setServiceDist( ActiveEntry.CONST);// mapped by stat type
-        eae.setDistP1((int)1.0);// mapped by parm1
-        man.AddActiveState(eae);
-
-        eae = new ExternalActiveEntry(true); //generate
-        eae.SetId("GENERATE_API_DATA"); //mapped by generate id
-        eae.setQID("Q_9"); // mapped by next dead
-        eae.setServiceDist( ActiveEntry.CONST);// mapped by stat type
-        eae.setDistP1((int)1);// mapped by parm1
-        man.AddActiveState(eae);
-
-        eae = new ExternalActiveEntry(true); //generate
         eae.SetId("GENERATE_VEHICLES"); //mapped by generate id
-        eae.setQID("Q_1"); // mapped by next dead
-        eae.setServiceDist( ActiveEntry.CONST);// mapped by stat type
-        eae.setDistP1((int)5);// mapped by parm1
+        eae.setQID("Q_GENERATE_VEHICLES"); // mapped by next dead
+        eae.setServiceDist( ActiveEntry.NEGEXP);// mapped by stat type
+        eae.setDistP1((int)7.5);// mapped by parm1
         man.AddActiveState(eae);
 
-        eae = new ExternalActiveEntry(false); //destroy
-        eae.SetId( "DESTROY_OUT"); //mapped by destroy id
-        eae.setQID( "OUT"); // mapped by prev dead
+        eae = new ExternalActiveEntry(true); //generate
+        eae.SetId("GENERATE_API"); //mapped by generate id
+        eae.setQID("Q_GENERATE_API"); // mapped by next dead
+        eae.setServiceDist( ActiveEntry.UNIFORM);// mapped by stat type
+        eae.setDistP1((int)1);// mapped by parm1
+        eae.setDistP2((int)5); //mapped by parm2
         man.AddActiveState(eae);
 
 
@@ -134,175 +155,412 @@ public class CONTROL_STRUCTURE
 
 
         iae = new InternalActiveEntry(true); //isn't router
-        iae.SetId( "A_1"); //mapped by act id
+        iae.SetId( "ACT_CONTROL_ALG"); //mapped by act id
         iae.setServiceDist(ActiveEntry.CONST);// mapped by stat type
-        iae.setDistP1(3);// mapped by parm1
+        iae.setDistP1((int)1);// mapped by parm1
         iae.addCond("true");
-        iae.addToQueue("Q_10");// mapped by next dead
-        iae.addFromQueue("Q_8");// mapped by prev dead
+        iae.addToQueue("Q_CONTROL_ALG");// mapped by next dead
+        iae.addFromQueue("Q_A1");// mapped by prev dead
         man.AddActiveState(iae);
 
         iae = new InternalActiveEntry(true); //isn't router
-        iae.SetId( "A_2"); //mapped by act id
-        iae.setServiceDist(ActiveEntry.CONST);// mapped by stat type
-        iae.setDistP1(0.5f);// mapped by parm1
+        iae.SetId( "A_1"); //mapped by act id
+        iae.setServiceDist(ActiveEntry.UNIFORM);// mapped by stat type
+        iae.setDistP1((int)1);// mapped by parm1
+        iae.setDistP2((int)5); //mapped by parm2
         iae.addCond("true");
-        iae.addToQueue("Q_11");// mapped by next dead
-        iae.addFromQueue("Q_9");// mapped by prev dead
-        iae.addToQueue("Q_11");// mapped by next dead
-        iae.addFromQueue("Q_10");// mapped by prev dead
+        iae.addToQueue("Q_A1");// mapped by next dead
+        iae.addFromQueue("Q_FB1");// mapped by prev dead
+        iae.addToResource("TRAFFIC_AGENT");// mapped by next resource dead
+        iae.addResourceQty(new Integer(1));// mapped by init on resource dead
+        iae.addFromResource("TRAFFIC_AGENT");// mapped by prev resource dead
+        man.AddActiveState(iae);
+
+        iae = new InternalActiveEntry(true); //isn't router
+        iae.SetId( "A_2.1"); //mapped by act id
+        iae.setServiceDist(ActiveEntry.UNIFORM);// mapped by stat type
+        iae.setDistP1((int)0.1);// mapped by parm1
+        iae.setDistP2((int)0.5); //mapped by parm2
+        iae.addCond("true");
+        iae.addToQueue("Q_A2");// mapped by next dead
+        iae.addFromQueue("Q_CONTROL_ALG");// mapped by prev dead
+        iae.addToResource("SCCI_MODULE");// mapped by next resource dead
+        iae.addResourceQty(new Integer(1));// mapped by init on resource dead
+        iae.addFromResource("SCCI_MODULE");// mapped by prev resource dead
+        man.AddActiveState(iae);
+
+        iae = new InternalActiveEntry(true); //isn't router
+        iae.SetId( "A_2.2"); //mapped by act id
+        iae.setServiceDist(ActiveEntry.UNIFORM);// mapped by stat type
+        iae.setDistP1((int)10);// mapped by parm1
+        iae.setDistP2((int)60); //mapped by parm2
+        iae.addCond("true");
+        iae.addToQueue("Q_A2");// mapped by next dead
+        iae.addFromQueue("Q_FB2");// mapped by prev dead
+        iae.addToResource("SCCI_MODULE");// mapped by next resource dead
+        iae.addResourceQty(new Integer(1));// mapped by init on resource dead
+        iae.addFromResource("SCCI_MODULE");// mapped by prev resource dead
+        man.AddActiveState(iae);
+
+        iae = new InternalActiveEntry(true); //isn't router
+        iae.SetId( "A_2.3"); //mapped by act id
+        iae.setServiceDist(ActiveEntry.UNIFORM);// mapped by stat type
+        iae.setDistP1((int)10);// mapped by parm1
+        iae.setDistP2((int)40); //mapped by parm2
+        iae.addCond("true");
+        iae.addToQueue("Q_A2");// mapped by next dead
+        iae.addFromQueue("Q_FB7");// mapped by prev dead
+        iae.addToResource("SCCI_MODULE");// mapped by next resource dead
+        iae.addResourceQty(new Integer(1));// mapped by init on resource dead
+        iae.addFromResource("SCCI_MODULE");// mapped by prev resource dead
+        man.AddActiveState(iae);
+
+        iae = new InternalActiveEntry(true); //isn't router
+        iae.SetId( "A_2.4"); //mapped by act id
+        iae.setServiceDist(ActiveEntry.UNIFORM);// mapped by stat type
+        iae.setDistP1((int)2);// mapped by parm1
+        iae.setDistP2((int)3.5); //mapped by parm2
+        iae.addCond("true");
+        iae.addToQueue("Q_A2");// mapped by next dead
+        iae.addFromQueue("Q_GENERATE_API");// mapped by prev dead
+        iae.addToResource("SCCI_MODULE");// mapped by next resource dead
+        iae.addResourceQty(new Integer(1));// mapped by init on resource dead
+        iae.addFromResource("SCCI_MODULE");// mapped by prev resource dead
         man.AddActiveState(iae);
 
         iae = new InternalActiveEntry(true); //isn't router
         iae.SetId( "A_3"); //mapped by act id
-        iae.setServiceDist(ActiveEntry.CONST);// mapped by stat type
-        iae.setDistP1((int)1);// mapped by parm1
+        iae.setServiceDist(ActiveEntry.UNIFORM);// mapped by stat type
+        iae.setDistP1((int)6);// mapped by parm1
+        iae.setDistP2((int)30); //mapped by parm2
         iae.addCond("true");
-        iae.addToQueue("Q_12");// mapped by next dead
-        iae.addFromQueue("Q_11");// mapped by prev dead
+        iae.addToQueue("Q_A3");// mapped by next dead
+        iae.addFromQueue("Q_A2");// mapped by prev dead
+        iae.addToResource("TRAFFIC_LIGHTS");// mapped by next resource dead
+        iae.addResourceQty(new Integer(1));// mapped by init on resource dead
+        iae.addFromResource("TRAFFIC_LIGHTS");// mapped by prev resource dead
+        man.AddActiveState(iae);
+
+        iae = new InternalActiveEntry(true); //isn't router
+        iae.SetId( "FB_1.1"); //mapped by act id
+        iae.setServiceDist(ActiveEntry.UNIFORM);// mapped by stat type
+        iae.setDistP1((int)1);// mapped by parm1
+        iae.setDistP2((int)5); //mapped by parm2
+        iae.addCond("true");
+        iae.addToQueue("Q_FB1");// mapped by next dead
+        iae.addFromQueue("Q_GENERATE_API");// mapped by prev dead
+        iae.addToResource("SCCI_MODULE");// mapped by next resource dead
+        iae.addResourceQty(new Integer(1));// mapped by init on resource dead
+        iae.addFromResource("SCCI_MODULE");// mapped by prev resource dead
+        man.AddActiveState(iae);
+
+        iae = new InternalActiveEntry(true); //isn't router
+        iae.SetId( "FB_1.2"); //mapped by act id
+        iae.setServiceDist(ActiveEntry.UNIFORM);// mapped by stat type
+        iae.setDistP1((int)1.5);// mapped by parm1
+        iae.setDistP2((int)5); //mapped by parm2
+        iae.addCond("true");
+        iae.addToQueue("Q_FB1");// mapped by next dead
+        iae.addFromQueue("Q_FB7");// mapped by prev dead
+        iae.addToResource("SCCI_MODULE");// mapped by next resource dead
+        iae.addResourceQty(new Integer(1));// mapped by init on resource dead
+        iae.addFromResource("SCCI_MODULE");// mapped by prev resource dead
+        man.AddActiveState(iae);
+
+        iae = new InternalActiveEntry(true); //isn't router
+        iae.SetId( "FB_1.3"); //mapped by act id
+        iae.setServiceDist(ActiveEntry.UNIFORM);// mapped by stat type
+        iae.setDistP1((int)0.5);// mapped by parm1
+        iae.setDistP2((int)2); //mapped by parm2
+        iae.addCond("true");
+        iae.addToQueue("Q_FB1");// mapped by next dead
+        iae.addFromQueue("Q_FB2");// mapped by prev dead
+        iae.addToResource("SCCI_MODULE");// mapped by next resource dead
+        iae.addResourceQty(new Integer(1));// mapped by init on resource dead
+        iae.addFromResource("SCCI_MODULE");// mapped by prev resource dead
+        man.AddActiveState(iae);
+
+        iae = new InternalActiveEntry(true); //isn't router
+        iae.SetId( "FB_2"); //mapped by act id
+        iae.setServiceDist(ActiveEntry.UNIFORM);// mapped by stat type
+        iae.setDistP1((int)0);// mapped by parm1
+        iae.setDistP2((int)1); //mapped by parm2
+        iae.addCond("true");
+        iae.addToQueue("Q_FB2");// mapped by next dead
+        iae.addFromQueue("Q_A2");// mapped by prev dead
+        iae.addToResource("TRAFFIC_LIGHTS");// mapped by next resource dead
+        iae.addResourceQty(new Integer(1));// mapped by init on resource dead
+        iae.addFromResource("TRAFFIC_LIGHTS");// mapped by prev resource dead
         man.AddActiveState(iae);
 
         iae = new InternalActiveEntry(true); //isn't router
         iae.SetId( "FB_3"); //mapped by act id
-        iae.setServiceDist(ActiveEntry.CONST);// mapped by stat type
-        iae.setDistP1((int)1.0);// mapped by parm1
+        iae.setServiceDist(ActiveEntry.UNIFORM);// mapped by stat type
+        iae.setDistP1((int)0);// mapped by parm1
+        iae.setDistP2((int)1); //mapped by parm2
         iae.addCond("true");
-        iae.addToQueue("Q_2");// mapped by next dead
-        iae.addFromQueue("Q_1");// mapped by prev dead
-        iae.addFromQueue("Q_12");// mapped by prev dead
+        iae.addToQueue("Q_FB3");// mapped by next dead
+        iae.addFromQueue("Q_GENERATE_VEHICLES");// mapped by prev dead
+        iae.addToResource("INTERSECTION");// mapped by next resource dead
+        iae.addResourceQty(new Integer(1));// mapped by init on resource dead
+        iae.addFromResource("INTERSECTION");// mapped by prev resource dead
         man.AddActiveState(iae);
 
         iae = new InternalActiveEntry(true); //isn't router
         iae.SetId( "FB_4"); //mapped by act id
-        iae.setServiceDist(ActiveEntry.CONST);// mapped by stat type
-        iae.setDistP1((int)1);// mapped by parm1
+        iae.setServiceDist(ActiveEntry.UNIFORM);// mapped by stat type
+        iae.setDistP1((int)0.5);// mapped by parm1
+        iae.setDistP2((int)2); //mapped by parm2
         iae.addCond("true");
-        iae.addToQueue("Q_3");// mapped by next dead
-        iae.addFromQueue("Q_2");// mapped by prev dead
+        iae.addToQueue("Q_FB4");// mapped by next dead
+        iae.addFromQueue("Q_FB3");// mapped by prev dead
+        iae.addToResource("P_TRAFFIC_SENSOR_1");// mapped by next resource dead
+        iae.addResourceQty(new Integer(1));// mapped by init on resource dead
+        iae.addFromResource("P_TRAFFIC_SENSOR_1");// mapped by prev resource dead
         man.AddActiveState(iae);
 
         iae = new InternalActiveEntry(true); //isn't router
         iae.SetId( "FB_5"); //mapped by act id
-        iae.setServiceDist(ActiveEntry.CONST);// mapped by stat type
-        iae.setDistP1((int)1);// mapped by parm1
+        iae.setServiceDist(ActiveEntry.UNIFORM);// mapped by stat type
+        iae.setDistP1((int)0.5);// mapped by parm1
+        iae.setDistP2((int)2); //mapped by parm2
         iae.addCond("true");
-        iae.addToQueue("Q_4");// mapped by next dead
-        iae.addFromQueue("Q_3");// mapped by prev dead
+        iae.addToQueue("Q_FB5");// mapped by next dead
+        iae.addFromQueue("Q_FB4");// mapped by prev dead
+        iae.addToResource("P_TRAFFIC_SENSOR_2");// mapped by next resource dead
+        iae.addResourceQty(new Integer(1));// mapped by init on resource dead
+        iae.addFromResource("P_TRAFFIC_SENSOR_2");// mapped by prev resource dead
         man.AddActiveState(iae);
 
         iae = new InternalActiveEntry(true); //isn't router
         iae.SetId( "FB_6"); //mapped by act id
-        iae.setServiceDist(ActiveEntry.CONST);// mapped by stat type
-        iae.setDistP1((int)1);// mapped by parm1
+        iae.setServiceDist(ActiveEntry.UNIFORM);// mapped by stat type
+        iae.setDistP1((int)5);// mapped by parm1
+        iae.setDistP2((int)30); //mapped by parm2
         iae.addCond("true");
-        iae.addToQueue("Q_5");// mapped by next dead
-        iae.addFromQueue("Q_4");// mapped by prev dead
+        iae.addToQueue("Q_FB6");// mapped by next dead
+        iae.addFromQueue("Q_FB5");// mapped by prev dead
+        iae.addToResource("N_TRAFFIC_SENSOR_1");// mapped by next resource dead
+        iae.addResourceQty(new Integer(1));// mapped by init on resource dead
+        iae.addFromResource("N_TRAFFIC_SENSOR_1");// mapped by prev resource dead
         man.AddActiveState(iae);
 
         iae = new InternalActiveEntry(true); //isn't router
         iae.SetId( "FB_7"); //mapped by act id
         iae.setServiceDist(ActiveEntry.CONST);// mapped by stat type
-        iae.setDistP1((int)2);// mapped by parm1
+        iae.setDistP1((int)0.02);// mapped by parm1
         iae.addCond("true");
-        iae.addToQueue("Q_6");// mapped by next dead
-        iae.addFromQueue("Q_5");// mapped by prev dead
-        man.AddActiveState(iae);
-
-        iae = new InternalActiveEntry(true); //isn't router
-        iae.SetId( "FB_2"); //mapped by act id
-        iae.setServiceDist(ActiveEntry.CONST);// mapped by stat type
-        iae.setDistP1((int)3);// mapped by parm1
-        iae.addCond("true");
-        iae.addToQueue("Q_7");// mapped by next dead
-        iae.addFromQueue("Q_12");// mapped by prev dead
-        man.AddActiveState(iae);
-
-        iae = new InternalActiveEntry(true); //isn't router
-        iae.SetId( "FB_1"); //mapped by act id
-        iae.setServiceDist(ActiveEntry.CONST);// mapped by stat type
-        iae.setDistP1((int)5);// mapped by parm1
-        iae.addCond("true");
-        iae.addToQueue("OUT");// mapped by next dead
-        iae.addFromQueue("Q_6");// mapped by prev dead
-        iae.addFromQueue("Q_7");// mapped by prev dead
+        iae.addToQueue("Q_FB7");// mapped by next dead
+        iae.addFromQueue("Q_FB6");// mapped by prev dead
+        iae.addToResource("N_TRAFFIC_SENSOR_2");// mapped by next resource dead
+        iae.addResourceQty(new Integer(1));// mapped by init on resource dead
+        iae.addFromResource("N_TRAFFIC_SENSOR_2");// mapped by prev resource dead
         man.AddActiveState(iae);
 
 
         //observers
 
 
-        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_1");//observer queue
-        oe.SetId("Q_1_OBS");
+        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_A1");//observer queue
+        oe.SetId("Q_A1_OBS");
+        oe.setName(oe.GetId());
         man.AddObserver(oe);
 
-        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_2");//observer queue
-        oe.SetId("Q_2_OBS");
+        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_A2");//observer queue
+        oe.SetId("Q_A2_OBS");
+        oe.setName(oe.GetId());
         man.AddObserver(oe);
 
-        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_3");//observer queue
-        oe.SetId("Q_3_OBS");
+        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_A3");//observer queue
+        oe.SetId("Q_A3_OBS");
+        oe.setName(oe.GetId());
         man.AddObserver(oe);
 
-        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_4");//observer queue
-        oe.SetId("Q_4_OBS");
+        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_FB1");//observer queue
+        oe.SetId("Q_FB1_OBS");
+        oe.setName(oe.GetId());
         man.AddObserver(oe);
 
-        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_5");//observer queue
-        oe.SetId("Q_5_OBS");
+        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_FB2");//observer queue
+        oe.SetId("Q_FB2_OBS");
+        oe.setName(oe.GetId());
         man.AddObserver(oe);
 
-        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_6");//observer queue
-        oe.SetId("Q_6_OBS");
+        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_FB3");//observer queue
+        oe.SetId("Q_FB3_OBS");
+        oe.setName(oe.GetId());
         man.AddObserver(oe);
 
-        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_7");//observer queue
-        oe.SetId("Q_7_OBS");
+        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_FB4");//observer queue
+        oe.SetId("Q_FB4_OBS");
+        oe.setName(oe.GetId());
         man.AddObserver(oe);
 
-        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_8");//observer queue
-        oe.SetId("Q_8_OBS");
+        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_FB5");//observer queue
+        oe.SetId("Q_FB5_OBS");
+        oe.setName(oe.GetId());
         man.AddObserver(oe);
 
-        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_9");//observer queue
-        oe.SetId("Q_9_OBS");
+        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_FB6");//observer queue
+        oe.SetId("Q_FB6_OBS");
+        oe.setName(oe.GetId());
         man.AddObserver(oe);
 
-        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_10");//observer queue
-        oe.SetId("Q_10_OBS");
+        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_FB7");//observer queue
+        oe.SetId("Q_FB7_OBS");
+        oe.setName(oe.GetId());
         man.AddObserver(oe);
 
-        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_11");//observer queue
-        oe.SetId("Q_11_OBS");
+        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_GENERATE_VEHICLES");//observer queue
+        oe.SetId("Q_GENERATE_VEHICLES_OBS");
+        oe.setName(oe.GetId());
         man.AddObserver(oe);
 
-        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_12");//observer queue
-        oe.SetId("Q_12_OBS");
+        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_GENERATE_API");//observer queue
+        oe.SetId("Q_GENERATE_API_OBS");
+        oe.setName(oe.GetId());
         man.AddObserver(oe);
 
-        oe= new ObserverEntry(ObserverEntry.QUEUE,"OUT");//observer queue
-        oe.SetId("OUT_OBS");
+        oe= new ObserverEntry(ObserverEntry.QUEUE,"Q_CONTROL_ALG");//observer queue
+        oe.SetId("Q_CONTROL_ALG_OBS");
+        oe.setName(oe.GetId());
         man.AddObserver(oe);
-
-        oe= new ObserverEntry(ObserverEntry.ACTIVE,"GENERATE_CA");
-        oe.SetId("GENERATE_CA_OBS");
-        man.AddObserver(oe);
-
-        eae = (ExternalActiveEntry)man.GetActiveState("GENERATE_CA");
-        eae.setObsid("GENERATE_CA_OBS");
-
-        oe= new ObserverEntry(ObserverEntry.ACTIVE,"GENERATE_API_DATA");
-        oe.SetId("GENERATE_API_DATA_OBS");
-        man.AddObserver(oe);
-
-        eae = (ExternalActiveEntry)man.GetActiveState("GENERATE_API_DATA");
-        eae.setObsid("GENERATE_API_DATA_OBS");
 
         oe= new ObserverEntry(ObserverEntry.ACTIVE,"GENERATE_VEHICLES");
         oe.SetId("GENERATE_VEHICLES_OBS");
+        oe.setName(oe.GetId());
         man.AddObserver(oe);
 
         eae = (ExternalActiveEntry)man.GetActiveState("GENERATE_VEHICLES");
         eae.setObsid("GENERATE_VEHICLES_OBS");
+
+        oe= new ObserverEntry(ObserverEntry.ACTIVE,"GENERATE_API");
+        oe.SetId("GENERATE_API_DATA_OBS");
+        oe.setName(oe.GetId());
+        man.AddObserver(oe);
+
+        eae = (ExternalActiveEntry)man.GetActiveState("GENERATE_API");
+        eae.setObsid("GENERATE_API_DATA_OBS");
+
+        oe= new ObserverEntry(ObserverEntry.ACTIVE,"A_1");
+        oe.SetId("ACT_A1_OBS");
+        oe.setName(oe.GetId());
+        man.AddObserver(oe);
+
+        iae = (InternalActiveEntry)man.GetActiveState("A_1");
+        iae.setObsid("ACT_A1_OBS");
+
+        oe= new ObserverEntry(ObserverEntry.ACTIVE,"A_2.1");
+        oe.SetId("ACT_A2.1_OBS");
+        oe.setName(oe.GetId());
+        man.AddObserver(oe);
+
+        iae = (InternalActiveEntry)man.GetActiveState("A_2.1");
+        iae.setObsid("ACT_A2.1_OBS");
+
+        oe= new ObserverEntry(ObserverEntry.ACTIVE,"A_2.2");
+        oe.SetId("ACT_A2.2_OBS");
+        oe.setName(oe.GetId());
+        man.AddObserver(oe);
+
+        iae = (InternalActiveEntry)man.GetActiveState("A_2.2");
+        iae.setObsid("ACT_A2.2_OBS");
+
+        oe= new ObserverEntry(ObserverEntry.ACTIVE,"A_2.3");
+        oe.SetId("ACT_A2.3_OBS");
+        oe.setName(oe.GetId());
+        man.AddObserver(oe);
+
+        iae = (InternalActiveEntry)man.GetActiveState("A_2.3");
+        iae.setObsid("ACT_A2.3_OBS");
+
+        oe= new ObserverEntry(ObserverEntry.ACTIVE,"A_2.4");
+        oe.SetId("ACT_A2.4_OBS");
+        oe.setName(oe.GetId());
+        man.AddObserver(oe);
+
+        iae = (InternalActiveEntry)man.GetActiveState("A_2.4");
+        iae.setObsid("ACT_A2.4_OBS");
+
+        oe= new ObserverEntry(ObserverEntry.ACTIVE,"A_3");
+        oe.SetId("ACT_A3_OBS");
+        oe.setName(oe.GetId());
+        man.AddObserver(oe);
+
+        iae = (InternalActiveEntry)man.GetActiveState("A_3");
+        iae.setObsid("ACT_A3_OBS");
+
+        oe= new ObserverEntry(ObserverEntry.ACTIVE,"FB_1.1");
+        oe.SetId("ACT_FB1.1_OBS");
+        oe.setName(oe.GetId());
+        man.AddObserver(oe);
+
+        iae = (InternalActiveEntry)man.GetActiveState("FB_1.1");
+        iae.setObsid("ACT_FB1.1_OBS");
+
+        oe= new ObserverEntry(ObserverEntry.ACTIVE,"FB_1.2");
+        oe.SetId("ACT_FB1.2_OBS");
+        oe.setName(oe.GetId());
+        man.AddObserver(oe);
+
+        iae = (InternalActiveEntry)man.GetActiveState("FB_1.2");
+        iae.setObsid("ACT_FB1.2_OBS");
+
+        oe= new ObserverEntry(ObserverEntry.ACTIVE,"FB_1.3");
+        oe.SetId("ACT_FB1.3_OBS");
+        oe.setName(oe.GetId());
+        man.AddObserver(oe);
+
+        iae = (InternalActiveEntry)man.GetActiveState("FB_1.3");
+        iae.setObsid("ACT_FB1.3_OBS");
+
+        oe= new ObserverEntry(ObserverEntry.ACTIVE,"FB_2");
+        oe.SetId("ACT_FB2_OBS");
+        oe.setName(oe.GetId());
+        man.AddObserver(oe);
+
+        iae = (InternalActiveEntry)man.GetActiveState("FB_2");
+        iae.setObsid("ACT_FB2_OBS");
+
+        oe= new ObserverEntry(ObserverEntry.ACTIVE,"FB_3");
+        oe.SetId("ACT_FB3_OBS");
+        oe.setName(oe.GetId());
+        man.AddObserver(oe);
+
+        iae = (InternalActiveEntry)man.GetActiveState("FB_3");
+        iae.setObsid("ACT_FB3_OBS");
+
+        oe= new ObserverEntry(ObserverEntry.ACTIVE,"FB_4");
+        oe.SetId("ACT_FB4_OBS");
+        oe.setName(oe.GetId());
+        man.AddObserver(oe);
+
+        iae = (InternalActiveEntry)man.GetActiveState("FB_4");
+        iae.setObsid("ACT_FB4_OBS");
+
+        oe= new ObserverEntry(ObserverEntry.ACTIVE,"FB_5");
+        oe.SetId("ACT_FB5_OBS");
+        oe.setName(oe.GetId());
+        man.AddObserver(oe);
+
+        iae = (InternalActiveEntry)man.GetActiveState("FB_5");
+        iae.setObsid("ACT_FB5_OBS");
+
+        oe= new ObserverEntry(ObserverEntry.ACTIVE,"FB_6");
+        oe.SetId("ACT_FB6_OBS");
+        oe.setName(oe.GetId());
+        man.AddObserver(oe);
+
+        iae = (InternalActiveEntry)man.GetActiveState("FB_6");
+        iae.setObsid("ACT_FB6_OBS");
+
+        oe= new ObserverEntry(ObserverEntry.ACTIVE,"FB_7");
+        oe.SetId("ACT_FB7_OBS");
+        oe.setName(oe.GetId());
+        man.AddObserver(oe);
+
+        iae = (InternalActiveEntry)man.GetActiveState("FB_7");
+        iae.setObsid("ACT_FB7_OBS");
 
 
         //generate the model
